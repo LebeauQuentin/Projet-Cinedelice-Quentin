@@ -1,0 +1,198 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Pacifico&display=swap');
+
+.article_recipe_card_mod{
+  background-color: var(--color-nonary-card-recipe);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 10px;
+  min-height: 500px;
+  max-height: 500px;
+  position: relative;
+  transition: transform 0.3s ease-in-out; /* Animation douce */
+} 
+
+.recipe_card_mod_valid:hover {
+  transform: scale(1.01); /* Légère animation au survol */
+}
+
+.recipe_card_mod_valid:active {
+  transform: scale(0.98); /* Effet enfoncé au clic */
+}
+
+.recipe_card_mod_invalid {
+  position: relative;
+}
+
+.recipe_card_mod_invalid::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0); /* Invisible par défaut */
+  transition: background 0.3s ease-in-out;
+  pointer-events: none; /* Empêche le voile d'intercepter les clics */
+}
+
+.recipe_card_mod_invalid:hover::after {
+  background: rgba(0, 0, 0, 0.4); /* Voile gris foncé au survol */
+}
+
+.article_recipe_card_mod_validation {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 45px;
+  height: 45px;
+  content: "";
+  border-radius: 50%;
+  border: 2px solid var(--color-quinary-content);
+}
+
+.recipe_card_mod_validation_valid {
+  background-color: #03ac49;
+}
+
+.recipe_card_mod_validation_invalid {
+  background-color: #ac0303;
+}
+
+/* Tooltip */
+.article_recipe_card_mod_validation::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  z-index: 1000;
+  transform: translateX(-150%) translateY(-90%);
+  background-color: var(--color-quinary-content);
+  color: var(--color-quinary-fond);
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.article_recipe_card_mod_validation::before {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-290%) translateY(-290%) rotate(270deg);
+  border: 5px solid transparent;
+  border-top-color: var(--color-quinary-content);
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.article_recipe_card_mod_validation:hover::after,
+.article_recipe_card_mod_validation:hover::before {
+  visibility: visible;
+  opacity: 1;
+}
+/* Fin du tooltip */
+/* Boutons */
+.recipe_card_mod_buttons {
+  display: flex;
+  gap: 20px;
+}
+
+.recipe_card_mod_button_modify {
+  background-color: #ffb236;
+  padding: 10px;
+  border-radius: 5px;
+  border: none; 
+  color: var(--color-quinary-content);
+  box-shadow: -1px 5px 10px 2px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.recipe_card_mod_button_delete {
+  background-color: var(--color-senary-warning);
+  color: var(--color-quinary-content);
+  border: none;
+  cursor: pointer;
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: -1px 5px 10px 2px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease-in-out; /* Animation douce */
+} 
+
+.recipe_card_mod_button_delete:hover {
+  transform: scale(1.05); /* Légère animation au survol */
+}
+
+.recipe_card_mod_button_delete:active {
+  transform: scale(0.95); /* Effet enfoncé au clic */
+}
+
+.article_recipe_card_image_mod {
+  margin: 1rem 0;
+  border-radius: 10px;
+  border: 2px solid var(--color-quinary-content);
+  width: 100%;
+  min-width: 300px;
+  min-height: 170px;
+  max-height: 170px;
+  object-fit: cover;
+}
+
+.article_recipe_card_catdiet_mod {
+  margin: 0 auto;
+  padding: 0 1rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.article_recipe_card_catdiet_mod li {
+  list-style-type: none;
+  color: var(--color-quinary-content);
+  text-shadow: 4px 4px 16px rgba(66, 68, 90, 1);
+  padding: 0.2rem 0.5rem;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 0.9rem;
+  max-width: 150px;
+  min-width: 80px;
+  margin: 0;
+}
+
+.li_more_mod {
+  color: white;
+  text-align: center;
+  min-width: 4em;
+  font-size: 1rem;
+  background-color:var(--color-primary-logo);
+  padding: 0.2rem;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.myrecipe_h3 {    
+  color: var(--color-quinary-content);
+  font-size: 1.5rem;
+  padding: 1rem;
+}
+
+.myrecipe_h4 {
+  color: var(--color-quinary-content);
+  font-size: 1.6rem;
+  padding: 1rem;
+  font-family: 'Montserrat';
+}
+
+
+

@@ -1,0 +1,21 @@
+.button_cancel {
+  background-color: var(--color-button-cancel);
+  padding: 10px;
+  border-radius: 5px;
+  border: none; 
+  color: var(--color-quinary-content);
+  box-shadow: -1px 5px 10px 2px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  font-size: 1.2rem;
+  min-width: 120px;
+  transition: transform 0.3s ease-in-out; /* Animation douce */
+}
+
+.button_cancel:hover {
+  background-color: rgb(85, 85, 85);;
+  transform: scale(1.1); /* Légère animation au survol */
+}
+
+.button_cancel:active {
+  transform: scale(0.95); /* Effet enfoncé au clic */
+}

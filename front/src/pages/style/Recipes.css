@@ -1,0 +1,16 @@
+.all_recipes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 350px)); /* Min 200px, max 1fr */
+  gap: 20px; /* Espace entre les éléments */
+  padding: 10px; /* Optionnel pour un peu d'espace autour */
+  justify-content: center; /* Centre les éléments si moins de 4 */
+  max-width: 1600px; /* Évite que la grille soit trop large */
+  margin: auto; /* Centre le tout */
+}
+
+.nb-recipe-display, .filter-recipe-display {
+  font-size: 1.5rem;
+  font-style: italic;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}

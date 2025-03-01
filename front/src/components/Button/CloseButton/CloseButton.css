@@ -1,0 +1,17 @@
+.modal-button-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: var(--color-septenary-modal);
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out; /* Animation douce */
+} 
+
+.modal-button-close:hover {
+  transform: scale(1.1); /* Légère animation au survol */
+}
+
+.modal-button-close:active {
+  transform: scale(0.95); /* Effet enfoncé au clic */
+}

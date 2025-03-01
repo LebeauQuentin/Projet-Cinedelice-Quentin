@@ -1,0 +1,83 @@
+.modal-login {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 95%;
+    width: 500px;
+    /* height: 500px; */
+    background-color: var(--color-septenary-modal);
+    border-radius: 10px;
+    padding: 20px;
+    border: none;
+    z-index: 1000;
+}
+
+.modal-button-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: var(--color-septenary-modal);
+    border: none;
+    cursor: pointer;
+} 
+
+.modal-title-login {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--color-primary-fond);
+    text-align: center;
+}
+
+.modal-form-login {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 15% 15%;
+  /* background-color: red; */
+}
+
+.modal-form-login input {
+  width: 100%;
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+}
+
+.modal-button-container-login {
+  margin-top: 10%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 10px;
+}
+
+.modal-link-login {
+  margin-top: 10%;
+  text-align: center;
+  color: var(--color-octonary-link-modal);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-button-validate-login {
+  background-color: #ffb236;
+  padding: 10px;
+  border-radius: 5px;
+  border: none; 
+  color: var(--color-quinary-content);
+  box-shadow: -1px 5px 10px 2px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+@media (max-width: 500px) {
+  .modal-form-login {
+    margin: 15% 0;
+  }
+}
+
+
+
+
+
+

@@ -1,0 +1,18 @@
+FROM postgres:16-alpine
+
+WORKDIR /usr/src/app
+
+# Supprimer les variables d'environnement ici car elles sont dans .env.db.docker
+# ENV POSTGRES_USER=cinedelices
+# ENV POSTGRES_PASSWORD=cinedelices
+# ENV POSTGRES_DB=cinedelices
+
+# Copier les scripts SQL
+COPY ./data/*.sql /docker-entrypoint-initdb.d/
+
+# Ajout des permissions d'exécution
+RUN chmod 0755 /docker-entrypoint-initdb.d/*
+
+EXPOSE 5432
+
+

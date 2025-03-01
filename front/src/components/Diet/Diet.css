@@ -1,0 +1,9 @@
+@import url('../../assets/styles/variable.css');
+
+.recipe_card_diet{
+    font-size: 0.8rem;
+    color: var(--color-quinary-content);
+    padding: 0.2rem;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}

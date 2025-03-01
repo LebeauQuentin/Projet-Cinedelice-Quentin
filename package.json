@@ -1,0 +1,35 @@
+{
+  "name": "projet-cine-delices",
+  "version": "1.0.0",
+  "description": "Project Name: ciné délices site pour les amateurs de cinéma et de cuisine",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "devFront": "npm run dev --prefix front",
+    "devBack": "npm run dev --prefix api",
+    "dev": "concurrently \"npm run devBack\" \"npm run devFront\"",
+    "up": "docker compose up -d",
+    "down": "docker compose down",
+    "build": "docker compose build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/O-clock-Risotto/Projet-Cine-Delices.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/O-clock-Risotto/Projet-Cine-Delices/issues"
+  },
+  "homepage": "https://github.com/O-clock-Risotto/Projet-Cine-Delices#readme",
+  "devDependencies": {
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3",
+    "concurrently": "^9.1.2"
+  },
+  "dependencies": {
+    "react": "^19.0.0"
+  }
+}

@@ -1,0 +1,31 @@
+.mentions_legales{
+    background-color: transparent; /* Fond transparent */
+    backdrop-filter: blur(8px);
+    padding: 20px;  /* Ajoutez du padding si nécessaire */
+    text-align: center; /* Centrage du texte */  
+}
+
+.mentions_legales .mentions_section {
+    background-color: var(--color-nonary-card-recipe);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 10px;
+    margin: 20px;
+}
+
+.mentions_section p{
+    text-align: center;
+}
+
+.mentions_section_title {
+    font-size: 2rem;
+    margin-bottom: 0;
+}
+
+.mentions_section h3 {
+    font-size: 1.5rem;
+}

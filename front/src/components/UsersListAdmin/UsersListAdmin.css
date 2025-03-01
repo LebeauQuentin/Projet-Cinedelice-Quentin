@@ -1,0 +1,24 @@
+.user_admin_item {
+  position: relative;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: rgba(137, 133, 138, 0.2);
+  margin: 10px;
+  border: 2px solid rgba(29, 29, 29, 0.5);
+  cursor: pointer;
+  transition: background-color 0.3sease;
+}
+
+.user_admin_item_title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--color-quinary-fond);
+  
+}
+
+.user_admin_item_p {
+  color: var(--color-quinary-fond);
+  font-size: 1.1rem;
+  font-style: italic;
+
+}

@@ -1,0 +1,46 @@
+.movies_admin_container {
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.movie_admin_item {
+  position: relative;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: rgba(137, 133, 138, 0.2);
+  margin: 10px;
+  border: 2px solid rgba(29, 29, 29, 0.5);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.movie_admin_item:hover {
+  background-color: rgba(137, 133, 138, 0.5);
+}
+
+.movie_admin_item_title {
+  color: var(--color-quinary-fond);
+}
+
+.movie_admin_item_title p {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--color-quinary-fond);
+}
+
+.movie_admin_create {
+  background-color: #ffb236;
+  display: block;
+  margin: 0 auto;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 1rem;
+  border: none; 
+  color: var(--color-quinary-content);
+  box-shadow: -1px 5px 10px 2px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.movie_admin_create:hover {
+  background-color: var(--color-primary-logo);
+}

@@ -1,0 +1,146 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap');
+
+.ingredients_admin_container {
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.ingredients_admin_container ul{
+  padding: 0px;
+  margin: 0
+}
+
+.ingredient_admin_item {
+  position: relative;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: rgba(137, 133, 138, 0.2);
+  margin: 10px;
+  border: 2px solid rgba(29, 29, 29, 0.5);
+  transition: background-color 0.3s ease;
+}
+
+.ingredient_admin_item:hover {
+  background-color: rgba(137, 133, 138, 0.5);
+}
+
+.ingredient_admin_item_name {
+  color: var(--color-quinary-fond);
+  display: flex;
+  gap: 1rem;
+}
+
+.ingredient_admin_item_name input{
+  border-radius: 10px;
+}
+
+.ingredient_admin_item_name p {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--color-quinary-fond);
+}
+
+.admin_button_validate_ingredient {
+  background-color: #ffb236;
+  padding: 5px;
+  border-radius: 5px;
+  border: none; 
+  color: var(--color-quinary-content);
+  box-shadow: -1px 5px 10px 2px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.admin_button_validate_ingredient:hover {
+  background-color: var(--color-primary-logo);
+}
+
+.admin_button_delete_ingredient {
+  background-color: var(--color-senary-warning);
+  color: var(--color-quinary-content);
+  cursor: pointer;
+  margin-left: 2rem;
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+  box-shadow: -1px 5px 10px 2px rgba(0, 0, 0, 0.2);
+}
+
+.admin_button_delete_ingredient:hover {
+  background-color: red;
+}
+
+/* CREATE */
+.ingredient_create_admin_container_form {
+  display: flex;
+  justify-self: center;
+  justify-content: center;
+  align-items: center;
+  width: 88%;
+  margin: 0 0 2rem 0;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: rgba(137, 133, 138, 0.2);
+  border: 2px solid rgba(29, 29, 29, 0.5);
+}
+
+.ingredient_create_admin_container_form input{
+  border-radius: 10px;
+  margin: 0 1rem;
+  }
+
+.admin_button_validate_create_ingredient {
+  background-color: #ffb236;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 1rem;
+  border: none; 
+  color: var(--color-quinary-content);
+  box-shadow: -1px 5px 10px 2px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.admin_button_validate_create_ingredient:hover {
+  background-color: var(--color-primary-logo);
+}
+
+/* SEARCHBAR */
+.dashboard_research {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    width: 100%;
+    padding: 2rem;
+}
+
+.dashboard_research_ingredient {
+  display: flex;
+  background: var(--color-quinary-content);
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard_searchbar_ingredient {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 10px;
+  outline: none;
+  width: 250px;
+  background-color: var(--color-quinary-content);
+}
+
+.dashboard_searchbar_ingredient::placeholder {
+  color: #999;
+}
+
+.nb-ingredients-display {
+  font-size: 1rem;
+  color: black;
+  font-style: italic;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}

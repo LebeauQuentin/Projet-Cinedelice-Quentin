@@ -1,0 +1,88 @@
+.recipe_create_container {
+  color: var(--color-quinary-content);
+  font-size: 1.2rem;
+}
+
+.recipe_create_h2 {
+  font-size: 2.5rem;
+  margin-top: 0.4rem;
+}
+
+input[type="file"] {
+  width: 100%; /* S'adapte à la largeur disponible */
+  text-overflow: ellipsis; /* Coupe le texte avec "..." */
+}
+
+.recipe_create_container label{
+  font-weight: bold;
+  color: var(--color-septenary-modal);
+}
+
+.recipe_create_container input, .recipe_create_container textarea {
+  border-radius: 10px;
+  padding: 8px;
+}
+
+.recipe_create_container input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  accent-color: var(--color-primary-logo); /* Couleur personnalisée des cases cochées */
+}
+
+.recipe_create_form > * {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+  align-items: center;
+}
+
+.recipe_create_form > * > *{
+  margin-bottom: 0.5rem;
+  padding: 0.2rem;
+  width: 80%;
+}
+
+.recipe_create_diet_inputs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.recipe_create_instructions_delete {
+  margin-right: 0.5rem;
+}
+
+.recipe_create_instructions_content > *{
+ margin-bottom: 1rem;
+}
+
+.recipe_add_ingredients_button:not(:disabled),
+.recipe_create_instructions_button:not(:disabled) {
+  background-color: var(--color-primary-logo); /* Couleur activable (vert par exemple) */
+  color: white;
+  cursor: pointer;
+}
+
+.recipe_create_container select {
+  padding: 0.4rem;
+  border-radius: 10px;
+}
+
+.text-required {
+  text-align: end;
+  font-size: 1.2rem;
+  margin-right: 7rem;
+  color: var(--color-senary-warning);
+}
+
+.recipe_create_image button {
+max-width: 75%;
+}
+
+@media (max-width: 1000px) { 
+  .recipe_create_diet_inputs {
+    display: flex;
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,50 @@
+.recipes_admin_container {
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.recipe_admin_item {
+  position: relative;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: rgba(137, 133, 138, 0.2);
+  margin: 10px;
+  border: 2px solid rgba(29, 29, 29, 0.5);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.recipe_admin_item:hover {
+  background-color: rgba(137, 133, 138, 0.5);
+}
+
+.recipe_admin_item_title {
+  color: var(--color-quinary-fond);
+}
+
+.recipe_admin_item_title p {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--color-quinary-fond);
+}
+
+
+.recipe_admin_item_checked {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  content: "";
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid rgba(29, 29, 29, 0.5);
+}
+
+.recipe_admin_item_checked_valid   {
+  background-color: #03ac49;
+}
+
+.recipe_admin_item_checked_invalid {
+  background-color: #ac0303;
+}
+

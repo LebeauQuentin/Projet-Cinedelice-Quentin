@@ -1,0 +1,15 @@
+html {
+  /*Variables*/
+  /* couleurs principales */
+  --color-primary-logo: #ffcd7c;
+  --color-secondary-fond: #000000;
+  --color-tertiary-card: #242628f1;
+  --color-quaternary-title: #ffcd7c;
+  --color-quinary-content: #ffffff;
+  --color-senary-warning: #D91111;
+  --color-septenary-modal: #d9d9d9;
+  --color-octonary-link-modal: #2ba2f7;
+  --color-nonary-card-recipe: #837E7E;
+  --color-button-cancel: #7c7c79;
+}
+

@@ -1,0 +1,49 @@
+.section_404 {
+height: 85vh;
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 1rem;
+padding: 3rem;
+}
+
+.section_quote {
+ font-size: 1.3rem;
+ font-style: italic;
+ text-align: center;
+}
+
+.section_author {
+  font-size: 1.1rem;   
+  text-align: center; 
+  }
+
+.section_movie {
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+.section_movie cite {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.section_api {
+  font-size: 1.1rem;
+  font-style: italic;
+}
+
+.section_button {
+  background-color: #e8ae51;
+  color: var(--color-quinary-content);
+  border: none;
+  padding: 12px 24px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  border-radius: 8px;
+
+}
+
+.section_button:hover {
+  background-color: var(--color-primary-logo);
+}

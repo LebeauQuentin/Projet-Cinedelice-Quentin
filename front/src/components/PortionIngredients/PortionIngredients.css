@@ -1,0 +1,47 @@
+.recipe_detail_portion {
+  display: flex;
+  align-items: center;
+}
+
+.recipe_detail_portion_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.recipe_detail_portion_title {
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.recipe_detail_ingredients {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+
+.button_casting {
+  background-color: #e8ae51;
+  color: var(--color-quinary-content);
+  font-size: 1.2rem;
+  height: 30px; 
+  width: 30px;
+  border: none;
+  border-radius: 8px; /* Boutons arrondis */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.button_casting:hover {
+  background-color: var(--color-primary-logo);
+  transform: scale(1.1); /* Légère animation au survol */
+}
+
+.button_casting:active {
+  transform: scale(0.95); /* Effet enfoncé au clic */
+}

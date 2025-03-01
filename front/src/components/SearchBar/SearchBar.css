@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap');
+@import url('../../assets/styles/variable.css');
+
+.recipes_research {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    width: 100%;
+    padding: 2rem;
+}
+
+.form_research_recipe {
+    display: flex;
+    background: var(--color-quinary-content);
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.recipes_searchbar {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 10px;
+    outline: none;
+    width: 250px;
+    background-color: var(--color-quinary-content);
+}
+
+.recipes_searchbar::placeholder {
+    color: #999;
+}
+
+.recipe_button_filter{
+    align-self: center;
+}
+
+.recipes_searchbar_button, 
+.recipe_button_filter {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.recipes_searchbar_button {
+    background-color: #e8ae51;
+    color: var(--color-quinary-content);
+}
+
+.recipe_button_filter {
+    background-color: #e8ae51;
+    color: var(--color-quinary-content);
+}
+
+.recipes_searchbar_button:hover {
+    background-color: var(--color-primary-logo);
+}
+
+.recipe_button_filter:hover {
+    background-color: var(--color-primary-logo);
+}
+
+@media (max-width: 615px) { 
+    .recipes_research {
+        flex-direction: column;
+    }
+  }

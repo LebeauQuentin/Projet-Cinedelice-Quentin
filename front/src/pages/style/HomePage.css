@@ -1,0 +1,155 @@
+.homepage {
+  display: flex;
+  flex-direction: column;
+}
+
+.description_p {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.carroussel_container {
+  width: 300px;
+  height: 300px;
+  border-radius: 10px;
+}
+
+.section_description {
+  display: grid;
+  grid-template-rows: auto auto; /* Deux rangées : texte en haut, bouton + image en bas */
+  gap: 20px;
+  justify-items: center; /* Centre les éléments horizontalement */
+  text-align: center;
+  padding: 40px;
+}
+
+.section_description_high {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centre le texte horizontalement */
+  max-width: 800px;
+}
+
+.section_description_down {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.homepage_img_recipe {
+  width: 200px;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.homepage_h2 {
+  font-size: 2rem;
+}
+
+.title_cinedelice {
+  height: 20rem;
+  margin: 0 auto;
+}
+
+.title_cinedelice_h1 {
+font-size: 3.5rem;
+padding: 3.5rem 0rem 3.5rem 1rem;
+text-align: center;
+}
+
+.homepage_img_recipe {
+  margin: 0 auto;
+  width: 300px;
+}
+
+.homepage_card {
+  position: relative; /* Permet de positionner les titres dessus */
+  width: 100%;
+  padding: 0 10px;
+  max-width: auto; /* Ajuste selon ton design */
+  overflow: hidden; /* Évite les débordements */
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.homepage_card img {
+  width: 300px;
+  border-radius: 15px;
+  height: 300px; /* Taille fixe pour uniformiser */
+  object-fit: cover; /* Coupe l'image proprement */
+  display: block;
+  transition: transform 0.6s ease-in-out; /* Animation douce */
+} 
+
+.homepage_card img:hover {
+  transform: scale(1.05); /* Légère animation au survol */
+}
+
+.homepage_card img:active {
+  transform: scale(0.95); /* Effet enfoncé au clic */
+}
+
+.homepage_h4 {
+  position: absolute;
+  bottom: 10px; /* Positionne en haut */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #b68a1a62; /* Fond sombre semi-transparent */
+  color: white;
+  padding: 5px 10px;
+  border-radius: 10px;
+  font-size: 1rem;
+  text-align: center;
+  width: 80%;
+  font-family: "Montserrat", sans-serif;
+}
+
+.homepage_h5 {
+  position: absolute;
+  top: 40px; /* Positionne en bas */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #b68a1a62; /* Fond plus sombre */
+  color: white;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  text-align: center;
+  width: 90%;
+  font-family: "Montserrat", sans-serif;
+}
+
+.homepage_img_arrow {
+  align-self: center;
+  border: none;
+  cursor: pointer;
+  line-height: 1;
+  height: 5rem;
+  width: 5rem;
+  background-color: transparent;
+  transition: transform 0.3s ease-in-out; /* Animation douce */
+} 
+
+.homepage_img_arrow:hover {
+  transform: scale(1.1); /* Légère animation au survol */
+}
+
+.homepage_img_arrow:active {
+  transform: scale(0.95); /* Effet enfoncé au clic */
+}
+
+@media (max-width: 615px) { 
+  .section_news > *{
+    max-width: 70%;
+    margin: 1rem auto;
+    
+  }
+  .arrow1 {
+    margin-top: 1rem;
+    order: 1000; /* Première image en dessous */
+  }
+  .arrow3 {
+    margin-top: 1rem;
+    order: 900; /* Deuxième image encore en dessous */
+  }
+}

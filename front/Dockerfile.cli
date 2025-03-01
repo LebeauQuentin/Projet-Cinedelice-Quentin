@@ -1,0 +1,19 @@
+FROM node:22-alpine
+
+WORKDIR /usr/src/app
+
+# Copier les fichiers de dépendances
+COPY package*.json ./
+
+# Installer les dépendances
+RUN npm install
+
+EXPOSE 5173
+  
+# Configurer Vite avec le hot reload
+ENV VITE_USE_POLLING=true
+ENV CHOKIDAR_USEPOLLING=true
+ENV WATCHPACK_POLLING=true
+
+# Retirer l'option --watch qui n'est pas valide pour Vite
+CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]

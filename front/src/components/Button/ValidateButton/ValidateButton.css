@@ -1,0 +1,20 @@
+.button_validate {
+  background-color: #e8ae51;
+  color: var(--color-quinary-content);
+  border: none;
+  padding: 12px 24px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: transform 0.3s ease-in-out; /* Animation douce */
+  box-shadow: -1px 5px 10px 2px rgba(0, 0, 0, 0.2);
+}
+
+.button_validate:hover {
+  background-color: var(--color-primary-logo);
+  transform: scale(1.1); /* Légère animation au survol */
+}
+
+.button_validate:active {
+  transform: scale(0.95); /* Effet enfoncé au clic */
+}

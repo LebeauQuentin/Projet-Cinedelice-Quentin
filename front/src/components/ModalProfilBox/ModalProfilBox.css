@@ -1,0 +1,118 @@
+.modal-profil {
+  position: fixed;
+  opacity: 1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  max-width: 95%;
+  height: 600px;
+  background-color: var(--color-septenary-modal);
+  border-radius: 10px;
+  padding: 20px;
+  border: none;
+  z-index: 1000;
+}
+
+.modal-profil-opacity {
+  opacity: 0.5;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 90%;
+  width: 500px;
+  height: 600px;
+  background-color: var(--color-septenary-modal);
+  border-radius: 10px;
+  padding: 20px;
+  border: none;
+  z-index: 1000;
+}
+
+.modal-button-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: var(--color-septenary-modal);
+  border: none;
+  cursor: pointer;
+} 
+
+.modal-title-profil {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--color-primary-fond);
+  text-align: center;
+}
+
+.modal-form-profil {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 5% 15%;
+  /* background-color: red; */
+}
+
+.modal-form-profil input {
+  width: 100%;
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: -2px 5px 10px 2px rgba(0, 0, 0, 0.3);
+}
+
+.modal-form-profil-div {
+  position: relative;
+}
+
+.modal-form-profil-button-input {
+  position: absolute;
+  top: 4px;
+  right: 2px;
+  cursor: pointer;
+  border: none;
+  color: #7c7c79;
+}
+
+.modal-button-container-profil {
+  margin-top: 7%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 10px;
+}
+
+.modal-button-delete-profil {
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--color-senary-warning);
+  color: var(--color-quinary-content);
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  box-shadow: -1px 5px 10px 2px rgba(0, 0, 0, 0.2);
+}
+
+.modal-button-validate-profil {
+  background-color: #ffb236;
+  padding: 10px;
+  border-radius: 5px;
+  border: none; 
+  color: var(--color-quinary-content);
+  box-shadow: -1px 5px 10px 2px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+
+@media (max-width: 500px) {
+  .modal-form-profil {
+    margin: 15% 0;
+  }
+}
+
+
+

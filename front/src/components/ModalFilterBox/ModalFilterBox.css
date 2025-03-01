@@ -1,0 +1,140 @@
+.modal-filter {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 95%;
+    width: 500px;
+    height: 900px;
+    background-color: var(--color-septenary-modal);
+    border-radius: 10px;
+    padding: 20px;
+    border: none;
+    z-index: 1000;
+}
+
+.modal-button-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: var(--color-septenary-modal);
+    border: none;
+    cursor: pointer;
+}
+ 
+
+.modal-title-filter {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--color-primary-fond);
+    text-align: center;
+}
+
+.modal-form-filter {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0 15%;
+  /* background-color: red; */
+}
+
+.modal-form-filter input {
+  width: 100%;
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+}
+
+.modal-button-container-filter {
+  margin-top: 10%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 10px;
+}
+
+.modal-button-validate-filter {
+  background-color: #ffb236;
+  padding: 10px;
+  border-radius: 5px;
+  border: none; 
+  color: var(--color-quinary-content);
+  box-shadow: -1px 5px 10px 2px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.modal-button-validate-filter:hover {
+    background-color: var(--color-primary-logo);
+}
+
+.modal-button-reset-filter {
+    background-color: var(--color-button-cancel);
+    padding: 10px;
+    border-radius: 5px;
+    border: none; 
+    color: var(--color-quinary-content);
+    box-shadow: -1px 5px 10px 2px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+  }
+
+  .modal-button-reset-filter:hover {
+    background-color: rgb(85, 85, 85);;
+  }
+
+  .modal-form-filter ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .modal-form-filter li {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Espace entre la checkbox et le texte */
+    padding: 5px;
+
+  }
+  
+  .modal-form-filter input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    accent-color: #ffb236; /* Couleur personnalisée des cases cochées */
+  }
+  
+  .modal-form-filter label {
+    font-size: 1.2rem;
+    color: var(--color-primary-fond);
+    cursor: pointer;
+  }
+  
+.results {
+  position: absolute;
+  width: 20.1rem;
+  max-height: max-content;
+  background-color: white;
+  border-bottom-left-radius: 10px ;
+  border-bottom-right-radius: 10px ;
+}
+
+.result.selected {
+  background-color: #f0f0f0;
+  font-weight: bold;
+  cursor: pointer;
+}
+  
+  .result {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.5rem;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+    .result:hover {
+      background-color: gray;
+      width:fit-content
+}
+

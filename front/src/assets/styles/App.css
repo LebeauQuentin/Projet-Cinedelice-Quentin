@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Pacifico&display=swap');
+@import url('./variable.css');
+
+body {
+  background-color: var(--color-secondary-fond);
+  color: var(--secondary-color);
+  background-image: url('/images/Banniere.webp'); /* Chemin de ton image */
+  background-size: 1700px; /* Couvre toute la page */
+  background-position: top; /* Centre l’image */
+  background-repeat: no-repeat; /* Évite la répétition */
+}
+
+#root, html, body {
+  max-width: 100%;
+  font-family: 'Montserrat', sans-serif;
+  box-sizing: border-box;  
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+#root {
+  flex: 1;
+  justify-content: space-between; 
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+  text-align: center;
+  color: var(--color-primary-logo);
+  font-family: 'Pacifico', sans-serif;
+}
+
+h2 { 
+  margin: 2rem 0rem;
+  font-size: 3rem;
+}
+
+ul, li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none; /* Supprime le soulignement */
+  color: inherit; /* Garde la couleur du texte parent */
+}
+
+.section {
+  margin: 10px auto;
+  padding: 1rem;
+  width: 90%;
+  border-radius: 10px;
+  background-color: var(--color-tertiary-card);
+  border: 1px solid var(--color-quinary-content);
+}
+
+.error_message {
+  color: var(--color-senary-warning);
+  font-style: italic;
+  font-size: 1rem;
+}
+
+.loading_message {
+display: flex;
+height: 80vh;
+font-size: 1.5rem;
+justify-content: center;
+align-items: center;
+
+}
+
+@media (max-width: 415px) { .section { width: 100% } }

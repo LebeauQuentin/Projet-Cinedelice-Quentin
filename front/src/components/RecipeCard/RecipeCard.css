@@ -1,0 +1,87 @@
+@import url('../../assets/styles/variable.css');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Pacifico&display=swap');
+
+.article_recipe_card{
+  background-color: var(--color-nonary-card-recipe);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 10px;
+  min-height: 500px;
+  max-height: 500px;
+  transition: transform 0.3s ease-in-out; /* Animation douce */
+} 
+
+.article_recipe_card:hover {
+  transform: scale(1.01); /* Légère animation au survol */
+}
+
+.article_recipe_card:active {
+  transform: scale(0.98); /* Effet enfoncé au clic */
+}
+
+.article_recipe_card_image {
+  margin: 1rem 0;
+  border-radius: 10px;
+  border: 2px solid var(--color-quinary-content);
+  width: 95%;
+  min-height: 170px;
+  max-height: 170px;
+  object-fit: cover; /* Couvre l'élément sans déformation */
+}
+
+.article_recipe_card_catdiet {
+  margin: 0 auto; /* Annule toute marge extérieure et centre le tout */
+  padding: 0 1rem; /* Annule les paddings */
+  display: flex;
+  gap: 1rem;
+  justify-content: center; /* Centre horizontalement */
+  align-items: center; /* Centre verticalement */
+  flex-wrap: wrap; /* Permet de gérer les éléments en plusieurs lignes */
+}
+  
+.article_recipe_card_catdiet li {
+  list-style-type: none;
+  color: var(--color-quinary-content);
+  text-shadow: 4px 4px 16px rgba(66, 68, 90, 1);
+  padding: 0.2rem 0.5rem;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 0.9rem;
+  max-width: 150px; /* Limite la largeur des éléments */
+  min-width: 80px; /* Largeur minimale des éléments */
+  margin: 0; /* Annule toute marge */
+}
+
+.li_more {
+  color: white;
+  text-align: center;
+  min-width: 4em;
+  font-size: 1rem;
+  background-color:var(--color-primary-logo);
+  padding: 0.2rem;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+  
+h3 {    
+  color: var(--color-quinary-content);
+  font-size: 2rem;
+  padding: 1rem;
+
+}
+
+h4 {
+  color: var(--color-quinary-content);
+  font-size: 1.6rem;
+  padding: 1rem;
+  font-family: 'Montserrat';
+}
+
+p {
+  color: var(--color-quinary-content);
+  font-size: 0.8rem;
+}
