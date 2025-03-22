@@ -6,6 +6,7 @@ import jwt from "jsonwebtoken";
  * @param {Object} payload - Les données à inclure dans le token
  * @returns {string} Le token généré
  */
+
 export function generateToken(payload) {
   try {
     return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN });
@@ -21,6 +22,7 @@ export function generateToken(payload) {
  * @param {string} token - Le token à vérifier
  * @returns {Object} Les données du token
  */
+
 export function verifyToken(token) {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);

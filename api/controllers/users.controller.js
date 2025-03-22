@@ -11,7 +11,6 @@ import joi from "joi";
  */
 export async function createUser(req, res) {
   const { password, confirmPassword } = req.body;
-  // console.log(lastname, firstname, email, password, confirmPassword);
 
   // validation des données via joi création du schéma
   const schema = joi.object({
@@ -21,7 +20,6 @@ export async function createUser(req, res) {
     password: joi.string().min(6).required(),
     confirmPassword: joi.string().min(6).required(),
   });
-
 
   // validation des données via joi
   const { error, value } = schema.validate(req.body);
@@ -46,7 +44,6 @@ export async function createUser(req, res) {
   await Users.create({ last_name: value.lastname, first_name: value.firstname, email: value.email, password: hashedPassword });
   // retour de la réponse
   res.status(201).json({ message: "Utilisateur créé avec succès" });
-
 }
 
 /**
@@ -66,6 +63,7 @@ export async function getAllUsers(req, res) {
  * @param {*} res 
  * @returns {Object} retourne un utilisateur
  */
+
 export async function getUserById(req, res) {
   const { id } = req.params;
   const userId = Number(id);
@@ -79,12 +77,13 @@ export async function getUserById(req, res) {
   res.status(200).json(user);
 }
 
-/**S
+/**
  * @description Mettre à jour un utilisateur
  * @param {*} req 
  * @param {*} res 
- * @returns {Object} retourne un utilisateur
+ * @returns {Object} retourne un utilisateur sans le mot de passe
  */
+
 export async function updateUser(req, res) {
   const { id } = req.params;
   const userId = Number(id);
@@ -130,8 +129,9 @@ export async function updateUser(req, res) {
  * @description Supprimer un utilisateur
  * @param {*} req 
  * @param {*} res 
- * @returns {Object} retourne un utilisateur
+ * @returns {Object} un message de succès
  */
+
 export async function deleteUser(req, res) {
   const { id } = req.params;
   const userId = Number(id);
@@ -146,11 +146,16 @@ export async function deleteUser(req, res) {
   res.status(204).json({ message: "Utilisateur supprimé avec succès" });
 }
 
+/**
+ * @description Modifier le statut d'un utilisateur
+ * @param {*} req 
+ * @param {*} res 
+ * @returns {Object} un message de succès
+ */
+
 export async function isAdminUser(req,res) {
   // Récupérer l'ID de la recette
   const userId = parseInt(req.params.id);
-  // console.log("le id de la recette", userId);
-  // console.log("la validation", req.body);
 
   // Récupérer la recette en base de données
   const userToUpdate = await Users.findByPk(userId);

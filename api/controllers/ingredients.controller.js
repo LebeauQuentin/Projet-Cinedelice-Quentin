@@ -1,8 +1,14 @@
 import Joi from 'joi';
 import { Recipe, Ingredient } from "../models/index.js";
 
+/**
+ * @description Récupérer tous les ingrédients
+ * @param {*} res code de status et les ingrédients
+ * @returns {Object} les ingrédients
+ */
+
 export async function getIngredients(req,res) {
-  // On récupère toutes les recettes avec les ingrédients par ordre alphabetique
+  // On récupère tous les ingrédients par ordre alphabetique
   const ingredients = await Ingredient.findAll({
     order: [["name", "ASC"]],
   });
@@ -10,16 +16,23 @@ export async function getIngredients(req,res) {
   res.status(200).json(ingredients);
 }
 
+/**
+ * @description Récupérer un ingrédient
+ * @param {*} req l'id de l'ingrédient' à récupérer dans les params
+ * @param {*} res code de status et l'ingrédient
+ * @returns {Object} l'ingrédient
+ */
+
 export async function getOneIngredient(req,res) {
   // Récupérer l'ID de l'ingredient et on la parse
   const ingredientId = parseInt(req.params.id);
   
-  // On récupe l'ingredient' en fonction de son ID et l'on inclut les recettes auxquel il est associé
+  // On récupere l'ingredient en fonction de son ID et l'on inclut les recettes auxquel il est associé
   const ingredient = await Ingredient.findByPk(ingredientId, {
     include: {
       model: Recipe,
       as: "Recipes",
-      through: { attributes: [] },  //Permet d'éviter de récupérer les données de la table pivot
+      through: { attributes: [] },  // Permet d'éviter de récupérer les données de la table pivot
     },
   });
 
@@ -30,6 +43,13 @@ export async function getOneIngredient(req,res) {
 
   res.status(200).json(ingredient);
 }
+
+/**
+ * @description Créer un ingrédient
+ * @param {*} req le body avec le nom et la couleur
+ * @param {*} res code de status et l'ingrédient crée
+ * @returns {Object} l'ingrédient crée
+ */
 
 export async function createIngredient(req,res) {
   // Récupérer le body
@@ -55,11 +75,11 @@ export async function createIngredient(req,res) {
   // Vérifier si un ingredient avec le même nom existe (même soft-deleted)
   const existingIngredient = await Ingredient.findOne({
     where: { name },
-    paranoid: false // Inclut les régimes supprimés
+    paranoid: false // Inclut les ingrédients supprimés
   });
   if (existingIngredient) {
     if (existingIngredient.deleted_at !== null) {
-      // Restaurer le régime s'il était supprimé
+      // Restaurer l'ingredient s'il était supprimé
       await existingIngredient.restore();
       return res.status(200).json({ ingredient: existingIngredient });
     }
@@ -78,14 +98,21 @@ export async function createIngredient(req,res) {
   return res.status(201).json(createdIngredient);
 }
 
+/**
+ * @description Mettre à jour un ingrédient 
+ * @param {*} req l'id de l'ingrédient à mettre à jour dans les params
+ * @param {*} res code de status et l'ingrédient mise à jour
+ * @returns {Object} l'ingrédient mise à jour
+ */
+
 export async function updateIngredient(req,res) {
-  // Récupérer l'ID de la carte à update
+  // Récupérer l'ID de l'ingrédient à update
   const ingredientId = parseInt(req.params.id);
 
-  // Récupérer l'ingredient ciblé en BDD
+  // Récupérer l'ingrédient ciblé en BDD
   const ingredientToUpdate = await Ingredient.findByPk(ingredientId);
 
-  // Si elle n'existe pas ==> 404
+  // S'il n'existe pas ==> 404
   if (!ingredientToUpdate) {
     return res.status(404).json({ error: "Oups cet ingredient n'existe pas" });
   }
@@ -93,7 +120,7 @@ export async function updateIngredient(req,res) {
   // Récupèrer le body
   const body = req.body;
 
-  // Créer le Schéma de validation
+  // Créer le schéma de validation
   const updateIngredientBodySchema = Joi.object({
     name: Joi.string()
       .trim()
@@ -113,21 +140,28 @@ export async function updateIngredient(req,res) {
   // Procéder à l'update
   ingredientToUpdate.name = value.name || ingredientToUpdate.name;
 
-  // Mettre à jour l'ingredient et renvoyer la recette mise à jour avec les nouvelles relations
+  // Mettre à jour l'ingrédient et renvoyer la recette mise à jour avec les nouvelles relations
   const updatedIngredient = await ingredientToUpdate.save();
 
-  // Répondre à l'utilisateur avec les données de la carte modifiée
+  // Répondre à l'utilisateur avec les données de l'ingrédient modifiée
   return res.status(200).json(updatedIngredient);
 }
 
+/**
+ * @description Supprimer un ingrédient
+ * @param {*} req l'id de l'ingrédient à supprimer dans les params
+ * @param {*} res un status 204
+ * @returns {Object} un message de succès
+ */
+
 export async function deleteIngredient(req,res){
-  // Récupérer l'ID de la recette
+  // Récupérer l'ID de l'ingrédients
   const ingredientId = parseInt(req.params.id);
 
-  // Récupérer la recette en base de données
+  // Récupérer l'ingrédients en base de données
   const ingredientToDelete = await Ingredient.findByPk(ingredientId);
 
-  // Si la recette n'existe pas, renvoyer une erreur 404
+  // Si l'ingrédients n'existe pas, renvoyer une erreur 404
   if (!ingredientToDelete) {
     return res.status(404).json({ error: "Oups, cette ingredient n'existe pas" });
   }

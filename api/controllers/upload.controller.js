@@ -5,6 +5,7 @@ import fs from "fs";
 /**
  * @description Upload et conversion d'une image en WebP avec deux versions : une light (250x250) et une en taille originale.
  */
+
 export async function uploadImage(req, res) {
   if (!req.file) {
     return res.status(400).json({ error: "Aucun fichier reçu" });
@@ -44,6 +45,10 @@ export async function uploadImage(req, res) {
     res.status(500).json({ error: "Erreur lors du traitement de l'image" });
   }
 }
+
+/**
+ * @description Suppression d'un image existante pour pouvoir la remplacer.
+ */
 
 export async function deleteImage(req, res) {
   const oldFilename = req.params.filename;

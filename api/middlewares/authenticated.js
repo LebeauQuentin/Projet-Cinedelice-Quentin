@@ -8,6 +8,7 @@ import { Users } from "../models/index.js";
  * @param {*} res 
  * @param {*} next passe à la suite
  */
+
 export function isAuthenticated(req, res, next) {
   const token = getCookie(req);
   if (!token) {
@@ -27,6 +28,7 @@ export function isAuthenticated(req, res, next) {
  * @param {*} res 
  * @param {*} next passe à la suite
  */
+
 export async function authorized(req, res, next) {
   const decoded = req.decoded;
   const user = await Users.findOne({ where: { id: decoded.id } });

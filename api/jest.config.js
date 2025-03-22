@@ -1,4 +1,4 @@
-// configuration de jest pour les tests unitaires sources chatGPT
+// configuration de jest pour les tests unitaires -> sources chatGPT
 export default {
   testEnvironment: 'node',
   coverageDirectory: 'coverage',

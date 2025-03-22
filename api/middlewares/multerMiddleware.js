@@ -8,6 +8,7 @@ const storage = multer.diskStorage({
   }
 });
 
+// Configuration de multer pour l'upload des images
 export const upload = multer({ 
   storage,
   fileFilter: (req, file, cb) => {

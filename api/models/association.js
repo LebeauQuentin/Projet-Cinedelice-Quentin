@@ -121,6 +121,4 @@ AssocIngredientRecipe.belongsTo(Recipe, {
   as: "recipes"
 });
 
-// A voir pour la partie du dessus avec AssocIngredientRecipe, je ne suis pas sur que c'est bon!
-
 export { Recipe, Ingredient, Movie, Category, Users, AssocIngredientRecipe, Diet };

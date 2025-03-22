@@ -1,6 +1,6 @@
 import sanitizeHtml from "sanitize-html";
 
-/* on souhaite éviter les injections XSS, et donc nettoyer les balises script */
+/* Configuration de bodySanitizerMiddleware pour éviter les injections XSS, et donc nettoyer les balises script */
 export function bodySanitizerMiddleware(req, res, next) {
   // Pour chaque clé/valeur du body
   // si la valeur est une string, on la passe à sanitizeHtml
