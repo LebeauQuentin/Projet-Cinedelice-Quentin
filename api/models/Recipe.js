@@ -3,7 +3,6 @@ import { sequelize } from "./sequelizeClient.js";
 
 export class Recipe extends Model {}
 // définition du modèle recipe
-
 Recipe.init({
   title: {
     type: DataTypes.STRING,

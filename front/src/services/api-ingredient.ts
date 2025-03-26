@@ -1,10 +1,11 @@
+import { IIngredients } from "../@types";
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const apiBaseUrl = import.meta.env.VITE_API_BASE_URL
 
 export async function getAllIngredients() {
-
     try {
-    // On récupère les recettes : fetch : GET /api/ingredients
+    // On récupère les ingrédients : fetch : GET /api/ingredients
     const httpResponse = await fetch(`${apiBaseUrl}/ingredients`);
     // CAS où le backend répond mais avec un statut d'erreur
     if (! httpResponse.ok) {
@@ -22,10 +23,8 @@ export async function getAllIngredients() {
   };
 };
 
-// recuperer un ingredient
-
-export async function getOneIngredient(id:number): Promise<any>{
-
+// Récuperer un ingredient
+export async function getOneIngredient(id:number): Promise<IIngredients | null> {
   try {
      const httpResponse = await fetch(`${apiBaseUrl}/ingredients/${id}`);
   if(!httpResponse.ok) {
@@ -42,10 +41,9 @@ export async function getOneIngredient(id:number): Promise<any>{
   };
 };
 
-// creation d'un ingredient 
-export async function createIngredient(ingredientData:any): Promise<any> {
+// Création d'un ingredient 
+export async function createIngredient(ingredientData:any): Promise<IIngredients | null> {
   try {
-    //enregistrer  la nouvelle category dans api 
   const httpResponse = await fetch(`${apiBaseUrl}/ingredients`, {
     method: "POST", // je cible la route `POST`
     headers: {"Content-Type": "application/json"}, // je préviens que j'envoie du JSON
@@ -63,7 +61,7 @@ export async function createIngredient(ingredientData:any): Promise<any> {
   };  
 };
 
-export async function updateIngredient(data: any, id: number): Promise<any> {
+export async function updateIngredient(data: any, id: number): Promise<IIngredients | null> {
   try {
   const ingredientToUpdateUrl = `${apiBaseUrl}/ingredients/${id}` 
   const httpResponse = await fetch(ingredientToUpdateUrl, {
@@ -83,10 +81,9 @@ export async function updateIngredient(data: any, id: number): Promise<any> {
   };
  };
 
-//suppression d'un ingredient
+// Suppression d'un ingredient
 export async function deleteIngredient(id: number): Promise<boolean> {
   try {
-    // On récupère les recettes : fetch : GET /api/ingredients/:id
   const httpResponse= await fetch(`${apiBaseUrl}/ingredients/${id}`, {
     method:"DELETE",
   })

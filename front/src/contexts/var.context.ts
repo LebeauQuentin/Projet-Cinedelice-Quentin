@@ -1,6 +1,7 @@
 import { createContext, useContext } from "react";
 import { ICategory, IDiets, IIngredients, IMovie, IRecipe } from "../@types";
 
+// Context pour les variables globales
 interface IVarContext {
     headerLogo: string;
     setHeaderLogo: (value : string) => void;

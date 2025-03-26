@@ -1,0 +1,40 @@
+# Node modules
+node_modules
+api/node_modules
+front/node_modules
+package-lock.json
+
+# Fichiers générés par le système
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Dossiers de build / dist
+build/
+dist/
+
+# IDE / éditeurs de code
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Fichiers temporaires ou cachés
+*.bak
+*.tmp
+*.orig
+*.swp
+
+# Fichiers sensibles ou confidentiels
+*.pem
+*.key
+*.crt
+*.p12
+
+# Fichiers du système d'exploitation
+*.tar
+*.gz
+*.zip
+*.7z

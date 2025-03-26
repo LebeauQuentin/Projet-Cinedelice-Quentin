@@ -1,4 +1,10 @@
-// Controller Wrapper
+/**
+ * @description Utilisation de la fonction controllerWrapper pour gérer les erreurs
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next passe à la suite
+ */
+
 export function controllerWrapper(mdw) {
   return async (req, res, next) => {
     try {

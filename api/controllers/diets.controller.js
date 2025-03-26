@@ -1,6 +1,12 @@
 import Joi from "joi";
 import { Diet, Recipe } from "../models/index.js";
-// import { sequelize } from "../models/sequelizeClient.js";
+
+
+/**
+ * @description Récupérer toutes les régimes avec les recettes associées
+ * @param {*} res code de status et les régimes
+ * @returns {Object} les régimes avec les recettes associées
+ */
 
 export async function getDiets (req, res) {
 // On importe tous les régimes en incluant les recettes
@@ -19,8 +25,15 @@ export async function getDiets (req, res) {
   res.status(200).json(diets);
 }
 
+/**
+ * @description Récupérer un régime avec les recettes associées
+ * @param {*} req l'id du régime à récupérer dans les params
+ * @param {*} res code de status et le régime
+ * @returns {Object} le régime avec les recettes associées
+ */
+
 export async function getOneDiet (req, res) {
-  // Récupérer l'ID de la diet et on la parse
+  // Récupérer l'ID du régime et on la parse
   const dietId = parseInt(req.params.id);
 
   const oneDiet = await Diet.findByPk(dietId, {
@@ -37,11 +50,18 @@ export async function getOneDiet (req, res) {
   res.status(200).json(oneDiet);
 }
 
+/**
+ * @description Créer un régime
+ * @param {*} req le body avec le nom et la couleur
+ * @param {*} res code de status et le régime créé
+ * @returns {Object} le régime crée
+ */
+
 export async function createDiet (req, res) {
   // Récupérer le body
   const { name, color } = req.body;
 
-  // On crée un schema de validation
+  // On crée un schéma de validation
   const schema = Joi.object({
     name: Joi.string()
       .trim()
@@ -85,8 +105,15 @@ export async function createDiet (req, res) {
   res.status(201).json(newDiet);
 }
 
+/**
+ * @description Mettre à jour un régime
+ * @param {*} req l'id du régime à mettre à jour dans les params
+ * @param {*} res code de status et le régime mis à jour
+ * @returns {Object} le régime mis à jour
+ */
+
 export async function updateDiet(req, res) {
-  // Récupérer l'ID du régime à update
+  // Récupérer l'ID du régime à mettre à jour
   const dietId = parseInt(req.params.id);
   // Récupérer le régime
   const dietToUpdate = await Diet.findByPk(dietId);
@@ -133,6 +160,13 @@ export async function updateDiet(req, res) {
   return res.status(200).json(dietToUpdate);
 }
 
+/**
+ * @description Supprimer un régime
+ * @param {*} req l'id du régime à supprimer dans les params
+ * @param {*} res un status 204
+ * @returns {Object} un message de succès
+ */
+
 export async function deleteDiet (req, res) {
   // Récupérer l'ID du régime
   const dietId = parseInt(req.params.id);
@@ -140,7 +174,7 @@ export async function deleteDiet (req, res) {
   // Récupérer un régime en base de données
   const dietToDelete = await Diet.findByPk(dietId);
   
-  // Si régime n'existe pas, renvoyer une erreur 404
+  // Si le régime n'existe pas, renvoyer une erreur 404
   if (!dietToDelete) {
     return res.status(404).json({ error: "Oups, ce régime n'existe pas" });
   }

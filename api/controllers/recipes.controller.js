@@ -1,8 +1,14 @@
 import Joi from 'joi';
 import { Recipe, Ingredient, Diet, Movie, Category, Users, AssocIngredientRecipe } from "../models/index.js";
 
+/**
+ * @description Récupérer toutes les recettes avec les ingrédients, les régimes, le film, la catégorie et le nom de l'utilisateur associées
+ * @param {*} res code de status
+ * @returns {Object} les recettes avec les ingrédients, les régimes, le film, la catégorie et le nom de l'utilisateur associées
+ */
+
 export async function getRecipes(req,res) {
-  // On récupère toutes les recettes avec les ingrédients, les régimes,le film et la categorie
+  // On récupère toutes les recettes avec les ingrédients, les régimes,le film, la categorie et le nom de l'utilisateur
   const recipes = await Recipe.findAll({
     include: [{
       model: Ingredient,
@@ -27,6 +33,12 @@ export async function getRecipes(req,res) {
   res.status(200).json(recipes);
 }
 
+/**
+ * @description Récupérer toutes les ingrédients, les régimes, et les catégories
+ * @param {*} res code de status
+ * @returns {Object} les ingrédients, les régimes, les catégories
+ */
+
 export async function getDataForRecipes(req,res) {
   // On récupère toutes les catégories, les régimes et les ingrédients
   const diets = await Diet.findAll();
@@ -36,6 +48,13 @@ export async function getDataForRecipes(req,res) {
   res.status(200).json({diets, categories, ingredients});
 }
 
+/**
+ * @description Récupérer une recette avec les ingrédients, les régimes, la catégorie et le nom de l'utilisateur associées
+* @param {*} req l'id de la recette à récupérer dans les params
+* @param {*} res code de status
+ * @returns {Object} la recette avec les ingrédients, les régimes, le film, la catégorie et le nom de l'utilisateur associées
+ */
+ 
 export async function getOneRecipe(req,res) {
   // Récupérer l'ID de la recette et on la parse
   const recipeId = parseInt(req.params.id);
@@ -72,6 +91,13 @@ export async function getOneRecipe(req,res) {
 
   res.status(200).json(recipe);
 }
+
+/**
+ * @description Crée une recette
+* @param {*} req le body de la recette à créer
+* @param {*} res code de status
+ * @returns {Object} la recette avec les ingrédients, les régimes, le film, la catégorie et le nom de l'utilisateur associées
+ */
 
 export async function createRecipe(req,res) {
   // Récupérer le body
@@ -184,6 +210,13 @@ export async function createRecipe(req,res) {
 
   return res.status(201).json(createdRecipe);
 }
+
+/**
+ * @description Mettre à jour une recette
+* @param {*} req l'id de la recette à mettre à jour dans les params
+* @param {*} res code de status
+ * @returns {Object} la recette mise à jour avec les ingrédients, les régimes, le film, la catégorie et le nom de l'utilisateur associées
+ */
 
 export async function updateRecipe(req,res) {
   // Récupérer l'ID de la recette à update
@@ -329,6 +362,13 @@ export async function updateRecipe(req,res) {
   return res.status(200).json(updatedRecipe);
 }
 
+/**
+ * @description Mettre à jour une recette pour la valider
+* @param {*} req l'id de la recette à mettre à jour dans les params
+* @param {*} res code de status
+ * @returns {Object} un message de confirmation
+ */
+
 export async function validateRecipe(req,res) {
   // Récupérer l'ID de la recette
   const recipeId = parseInt(req.params.id);
@@ -369,6 +409,13 @@ export async function validateRecipe(req,res) {
   } return res.status(200).json({ message: "Aucune modification apporté" });
 }
 
+/**
+ * @description Suppression d'une recette
+* @param {*} req l'id de la recette à mettre à jour dans les params
+* @param {*} res code de status 204
+ * @returns {Object} un message de confirmation
+ */
+
 export async function deleteRecipes(req,res){
   // Récupérer l'ID de la recette
   const recipeId = parseInt(req.params.id);
@@ -381,7 +428,7 @@ export async function deleteRecipes(req,res){
     return res.status(404).json({ error: "Oups, cette recette n'existe pas" });
   }
 
-  // On renomme la categorie qui vient d'etre supprimée ---> Pas obligatoire car pas de contrainte d'unicité dans le titre de la recette
+  // On renomme la recette qui vient d'etre supprimée ---> Pas obligatoire car pas de contrainte d'unicité dans le titre de la recette
   recipeToDelete.title = `recipeDeleteNumber${recipeToDelete.id}`;
   recipeToDelete.save();
   // Et l'on supprime en soft delete

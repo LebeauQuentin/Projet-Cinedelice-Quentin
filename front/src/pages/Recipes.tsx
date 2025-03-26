@@ -2,7 +2,7 @@ import "./style/Recipes.css"
 import { useVar } from "../contexts/var.context";
 import { Link } from "react-router";
 import { useEffect, useState } from "react";
-import ModalFilterBox from "../components/ModalFilterBox/ModalFilterBox";
+import ModalFilterBox from "../components/Modals/ModalFilterBox/ModalFilterBox";
 import RecipeCard from "../components/RecipeCard/RecipeCard";
 import SearchBar from "../components/SearchBar/SearchBar";
 
@@ -14,7 +14,7 @@ export default function Recipes () {
   }, [setHeaderLogo]);
 
   // Utilisation de React Query pour gérer la requête
-  const { recipes, isLoading, error } = useVar()
+  const { recipes, isLoading, error } = useVar();
 
   const [recipesDisplay, setRecipesDisplay] = useState(recipes);
   const [catsAndDietsSelected, setcatsAndDietsSelected] = useState("");
@@ -69,7 +69,6 @@ let textFilterRecipesDisplay = ""
 
   return (
     <>
-
     {/* Gestion du chargement */}
     {isLoading && <p className="loading_message">Chargement des recettes. Votre séance va commencer...</p>}
 

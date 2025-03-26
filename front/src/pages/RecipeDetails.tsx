@@ -3,12 +3,12 @@ import { useEffect, useState } from "react";
 import { getOneRecipe } from "../services/api-recipe";
 import { useNavigate, useParams } from "react-router";
 import { useVar } from "../contexts/var.context.ts";
+import { useQuery } from "@tanstack/react-query";
+import { IRecipe } from '../@types/index';
 import MovieDetails from "../components/MovieDetails/MovieDetails";
 import Category from "../components/Category/Category.tsx";
 import Diet from "../components/Diet/Diet.tsx";
 import PortionIngredients from "../components/PortionIngredients/PortionIngredients.tsx";
-import { useQuery } from "@tanstack/react-query";
-import { IRecipe } from '../@types/index';
 
 export default function RecipeDetails () {
   // Définition du logo (O'clock Présente sur HomePage / Cinedelices sur les autres)

@@ -63,15 +63,15 @@ export default function RecipeCreateForm () {
           const createdIngredient = await createIngredient(ingredientData);
           if (createdIngredient) {
             setUpdateTriggerIngredients((prev) => !prev);
-          }
   
           const newIngredient = {
             ingredient_id: createdIngredient.id,
             quantity: Number.parseFloat(currentQuantity),
             unit: currentUnit,
           };
-  
+        
           setIngredientList((prev) => [...prev, newIngredient]);
+        }
         } catch (error) {
           console.error("Erreur lors de la création de l'ingrédient :", error);
         }
@@ -88,7 +88,7 @@ export default function RecipeCreateForm () {
       handleAddIngredient(event);
     }
   };
-  //Fonction DeleteIngredient qui efface l'ingredient auquel le bouton est associé
+  // Fonction DeleteIngredient qui efface l'ingredient auquel le bouton est associé
   const handleRemoveIngredient = (index: number, event: React.MouseEvent) => {
   event.preventDefault()
   setIngredientList(ingredientList.filter((_, i) => i !== index)); // Filtrer pour enlever l'élément
@@ -155,19 +155,19 @@ export default function RecipeCreateForm () {
   // ==========================
   // ===== Fichier Upload =====
   // ==========================
-    const fileInputRef = useRef<HTMLInputElement>(null);
-    const [selectedFile, setSelectedFile] = useState<File | null>(null);
-    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       setSelectedFile(event.target.files[0]);
     }
   };
-    const handleRemoveFile = () => {
-      setSelectedFile(null);
-      if (fileInputRef.current) {
-        fileInputRef.current.value = ""; // Réinitialise le champ file
-      }
-    };
+  const handleRemoveFile = () => {
+    setSelectedFile(null);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = ""; // Réinitialise le champ file
+    }
+  };
 
   // ======================================
   // ====== Soummission du Formulaire =====
@@ -346,6 +346,8 @@ export default function RecipeCreateForm () {
   };
   // Vérification de l'authentification de l'utilisateur
   useAuthVerification("user");
+
+  
   return (
     <div className="recipe_create_container section">
       <h2 className="recipe_create_h2">- Création de recette -</h2>

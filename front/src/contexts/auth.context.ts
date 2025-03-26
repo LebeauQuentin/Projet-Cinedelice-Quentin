@@ -1,6 +1,8 @@
 import { createContext, useContext } from "react";
 import { IUser } from "../@types";
 
+//  Contexte pour l'authentification
+
 interface AuthContextType {
     user: IUser | null;
     setUser: (user: IUser | null) => void;

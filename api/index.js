@@ -6,10 +6,10 @@ import cookieParser from "cookie-parser";
 import { router } from "./routers/index.router.js";
 import { bodySanitizerMiddleware } from "./middlewares/sanitize.js";
 
-// CONFIGURATION
+// Configuration d'express
 const app = express();
 
-// Authorize CORS requests 
+// Authorize CORS requests à modifier pour la prod 
 app.use(cors({
   origin: "http://localhost:5173",
   credentials: true,
@@ -46,11 +46,10 @@ app.use('/images-recettes', express.static('public/images-recettes', {
   }
 }));
 
-
 // SanitizeHtml pour empecher les injections XSS
 app.use(bodySanitizerMiddleware);
 
-// Configure routes
+// Configuration des routes de l'api
 app.use("/api", router);
 
 // use variables d'environnement

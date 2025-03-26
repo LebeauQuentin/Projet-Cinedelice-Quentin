@@ -11,28 +11,28 @@ import { uploadRouter } from "./upload.routeur.js";
 export const router = Router();
 
 // == Routes ==
-// add routes Recettes
+// routes Recettes
 router.use(recipesRouter);
 
-// add routes Diets
+// routes Diets
 router.use(dietsRouter);
 
-// add routes Users
+// routes Users
 router.use(usersRouter);
 
-// add routes Auth
+// routes Auth
 router.use(authRouter);
 
-//add routes categories
+//routes categories
 router.use(categoriesRouter);
 
-// add routes Ingredients
+// routes Ingredients
 router.use(ingredientRouter);
 
-// add routes Movies
+// routes Movies
 router.use(movieRouter);
 
-// add routes upload
+// routes upload
 router.use(uploadRouter);
 
 // Middleware 404

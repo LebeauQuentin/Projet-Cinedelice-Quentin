@@ -1,5 +1,7 @@
 import { createContext, useContext } from "react";
 
+// Context pour les modals
+
 interface IModalContext {
     isModalLoginOpen: boolean;
     isModalRegisterOpen: boolean;

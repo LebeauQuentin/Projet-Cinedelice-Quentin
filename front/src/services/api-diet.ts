@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { IDiets } from "../@types";
+
 const apiBaseUrl = import.meta.env.VITE_API_BASE_URL
 
 export async function getAllDiets() {
-
     try {
     // On récupère les régimes : fetch : GET /api/diets
     const httpResponse = await fetch(`${apiBaseUrl}/diets`);
@@ -21,12 +23,8 @@ export async function getAllDiets() {
   };
 };
 
-// on recupere un regime
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export async function getOneDiet(id: number): Promise<any> {
-  
-  
+// On récupère un regime
+export async function getOneDiet(id: number): Promise<IDiets | null> {
   try {
   // On récupère le regime associer : fetch : GET /api/diets/:id
   const httpResponse = await fetch(`${apiBaseUrl}/diets/${id}`);
@@ -47,12 +45,9 @@ export async function getOneDiet(id: number): Promise<any> {
 };
 
 
-// on crée un regime
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export async function createDiet(dietData:any): Promise<any> {
-  try {
-    //enregistrer  la nouvelle category dans api 
+// On crée un regime
+export async function createDiet(dietData:any): Promise<IDiets | null> {
+  try { 
   const httpResponse = await fetch(`${apiBaseUrl}/diets`, {
     method: "POST", // je cible la route `POST`
     headers: {"Content-Type": "application/json"}, // je préviens que j'envoie du JSON
@@ -70,12 +65,10 @@ export async function createDiet(dietData:any): Promise<any> {
   }  
 } 
 
-// on modifier un regime 
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export async function updateDiet(id: number, data: any): Promise<any> {
+// On modifie un regime 
+export async function updateDiet(id: number, data: any): Promise<IDiets | null> {
   try {
-   //recuperer la category a modifier
+   // Récuperer le régime à modifier
   const dietToUpdateUrl = `${apiBaseUrl}/diets/${id}` 
   const httpResponse = await fetch(dietToUpdateUrl, {
    method: "PATCH", 

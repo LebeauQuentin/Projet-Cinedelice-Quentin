@@ -1,20 +1,33 @@
 import Joi from 'joi';
 import { Movie } from "../models/index.js";
 
+/**
+ * @description Récupérer toutes les films
+ * @param {*} res code de status et les films
+ * @returns {Object} les films
+ */
+
 export async function getMovies(req,res) {
-  // On récupère tous les movies et on tri dans l'ordre croissant
+  // On récupère tous les films et on tri dans l'ordre croissant
   const movies = await Movie.findAll({
     order: [["title", "ASC"]],
   });
-  // On revoit les movies avec un status 200
+  // On revoit les films avec un status 200
   res.status(200).json(movies);
 }
 
+/**
+ * @description Récupérer un film
+ * @param {*} req l'id du film à récupérer dans les params
+ * @param {*} res code de status et le film
+ * @returns {Object} le film
+ */
+
 export async function getOneMovie(req,res) {
-  // Récupérer l'ID du movie et on la parse
+  // Récupérer l'ID du film et on la parse
   const movieId = parseInt(req.params.id);
   
-  // On récupe l'ingredient' en fonction de son ID et l'on inclut les recettes auxquel il est associé
+  // On récupere le film en fonction de son ID et l'on inclut les recettes auxquel il est associé
   const movie = await Movie.findByPk(movieId);
 
   // Si pas de données => 404
@@ -24,6 +37,13 @@ export async function getOneMovie(req,res) {
 
   res.status(200).json(movie);
 }
+
+/**
+ * @description Créer un film
+ * @param {*} req le body avec le nom et la couleur
+ * @param {*} res code de status et le film créé
+ * @returns {Object} le film crée
+ */
 
 export async function createMovie(req,res) {
   // Récupérer le body
@@ -54,10 +74,10 @@ export async function createMovie(req,res) {
     return res.status(400).json({ error: `erreur de validation: ${error}` });
   }
 
-  // Vérifier si un ingredient avec le même title existe (même soft-deleted)
+  // Vérifier si un film avec le même title existe (même soft-deleted)
   const existingMovie = await Movie.findOne({
     where: { title },
-    paranoid: false // Inclut les régimes supprimés
+    paranoid: false // Inclut les films supprimés
   });
   if (existingMovie) {
     if (existingMovie.deleted_at !== null) {
@@ -68,17 +88,24 @@ export async function createMovie(req,res) {
     return res.status(409).json({ status: 409, message: "Conflit : Ce film existe déjà" });
   }
 
-  // On crée l'ingredient
+  // On crée le film
   const newMovie = await Movie.create({
     title, description, director, actors, year, image, funfact, category
   });
 
-  // Récupérer l'ingredient qui vient d'être créé
+  // Récupérer le film qui vient d'être créé
   const createdMovie = await Movie.findByPk(newMovie.id);
 
   // Et on le renvoit avec un code succes 201
   return res.status(201).json(createdMovie);
 }
+
+/**
+ * @description Mettre à jour un film
+ * @param {*} req l'id du film à mettre à jour dans les params
+ * @param {*} res code de status et le film mis à jour
+ * @returns {Object} le film mis à jour
+ */
 
 export async function updateMovie(req,res) {
   // Récupérer l'ID du film à update
@@ -130,28 +157,34 @@ export async function updateMovie(req,res) {
   movieToUpdate.funfact = value.funfact || movieToUpdate.funfact;
   movieToUpdate.category = value.category || movieToUpdate.category;
 
-  // Mettre à jour l'ingredient et renvoyer la recette mise à jour avec les nouvelles relations
+  // Le film mis à jour avec les nouvelles relations
   const updatedMovie = await movieToUpdate.save();
 
 
-  // Répondre à l'utilisateur avec les données de la carte modifiée
+  // Répondre à l'utilisateur avec les données du film modifiée
   return res.status(200).json(updatedMovie);
 }
 
+/**
+ * @description Supprimer un film
+ * @param {*} req l'id du film à supprimer dans les params
+ * @param {*} res un status 204
+ * @returns {Object} un message de succès
+ */
 
 export async function deleteMovie(req,res){
-  // Récupérer l'ID de la recette
+  // Récupérer l'ID du film
   const movieId = parseInt(req.params.id);
 
-  // Récupérer la recette en base de données
+  // Récupérer le film en base de données
   const movieToDelete = await Movie.findByPk(movieId);
 
-  // Si la recette n'existe pas, renvoyer une erreur 404
+  // Si le film n'existe pas, renvoyer une erreur 404
   if (!movieToDelete) {
     return res.status(404).json({ error: "Oups, ce chef d'oeuvre n'existe pas" });
   }
 
-  // On renomme le régime qui vient d'être supprimé
+  // On renomme le film qui vient d'être supprimé
   movieToDelete.name = `movieDeleteNumber${movieToDelete.id}`;
   movieToDelete.save();
 

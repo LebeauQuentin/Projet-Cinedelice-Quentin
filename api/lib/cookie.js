@@ -5,6 +5,7 @@ import "dotenv/config";
  * @param {*} req, res 
  * @param {*} token 
  */
+
 export function setCookie(req, res, token) {
   const maxAge = Number(process.env.COOKIE_EXPIRES_IN);
   req.session.expires = Date.now() + maxAge; //mettre en timeStamp
@@ -23,6 +24,7 @@ export function setCookie(req, res, token) {
  * @param {*} req 
  * @returns {Number} temps restant
  */
+
 export function getRemainingTime(req) {
   const expiresIn = req.session.expires;
   const timeRemaining = expiresIn - Date.now(); // enlever le timestamp pour deduire le temps restant
@@ -36,6 +38,7 @@ export function getRemainingTime(req) {
  * @param {*} req, res 
  * @returns {Number} cookie temps restant de la session
  */
+
 export function setCookieExpiry(req, res) {
   const remainingTime = getRemainingTime(req);// temps restant avant la fin de la session
   const expiry = Date.now() + Number(remainingTime); // mettre en timeStamp
@@ -53,6 +56,7 @@ export function setCookieExpiry(req, res) {
  * @param {*} req 
  * @returns {String} token
  */
+
 export function getCookie(req) {
   if (!req.cookies["x-auth-token"] || req.cookies["x-auth-token"].length < 20) {
     return null;
@@ -64,6 +68,7 @@ export function getCookie(req) {
  * @description Supprimer un cookie x-auth-token
  * @param {*} res 
  */
+
 export function deleteCookie(res) {
   res.clearCookie("x-auth-token");
 }

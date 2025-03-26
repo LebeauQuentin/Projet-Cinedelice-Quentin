@@ -1,9 +1,14 @@
 import Joi from "joi";
 import { Category, Recipe } from "../models/index.js";
-//import { sequelize } from "../models/sequelizeClient.js";
+
+/**
+ * @description Récupérer toutes les catégories avec les recettes associées
+ * @param {*} res code de status et les catégories
+ * @returns {Object} les catégories avec les recettes associées
+ */
 
 export  async function getCategories(req, res){
-//   On importe tous les rcategories égimes en incluant les recettes
+//   On importe tous les catégories  en incluant les recettes
   const categories = await Category.findAll({include:[{
     model:Recipe,
     as: "Recipes"
@@ -20,25 +25,39 @@ export  async function getCategories(req, res){
   
 }
 
-export async function getOneCategorie(req, res) {
+/**
+ * @description Récupérer une catégorie avec les recettes associées
+ * @param {*} req l'id de la catégorie à récupérer dans les params
+ * @param {*} res code de status et la catégorie
+ * @returns {Object} la catégorie avec les recettes associées
+ */
+
+export async function getOneCategory(req, res) {
   const categoryId = parseInt(req.params.id);
-  const oneCategorie = await Category.findByPk(categoryId, {
+  const oneCategory = await Category.findByPk(categoryId, {
     include: [{
       model:Recipe,
       as: "Recipes"
     }]
   });
-  if(!oneCategorie){
-    return res.status(404).json({error: "pas de category trouvé"});
+  if(!oneCategory){
+    return res.status(404).json({error: "pas de categorie trouvé"});
   }
-  res.status(200).json(oneCategorie);
+  res.status(200).json(oneCategory);
 }
 
-export async function createCategorie(req, res) {
+/**
+ * @description Créer une catégorie
+ * @param {*} req le body avec le nom et la couleur
+ * @param {*} res code de status et la catégorie créee
+ * @returns {Object} la catégorie créee
+ */
+
+export async function createCategory(req, res) {
   // recupérer le body
   const {name, color} = req.body;
 
-  // on crée un shema de validation 
+  // on crée un schema de validation 
   const schema = Joi.object({
     name: Joi.string()
       .trim()
@@ -59,17 +78,17 @@ export async function createCategorie(req, res) {
   if (error) {
     return res.status(400).json({ error: `erreur de validation: ${error}` });
   }
-  // On verifie s'il n'y a pas de conflit de titre du category
+  // On verifie s'il n'y a pas de conflit du titre de la catégorie
   const existingCategory = await Category.findOne({
     where: {name},
     paranoid: false // inclut les categories supprimés
 
   });
-  // Inutile car les categories sont renommés à la suppression mais pas de soucis de le laisser.
+  // Inutile car les catégories sont renommés à la suppression mais pas de soucis de le laisser.
  
   if (existingCategory) {
     if(existingCategory.deleted_at !== null) {
-      //restaurer la category s'il etait supprimée
+      //restaurer la categorie si elle etait supprimée
       await existingCategory.restore();
       return res.status(200).json(existingCategory);
     }
@@ -77,20 +96,26 @@ export async function createCategorie(req, res) {
   
   }
   
-
-  //On cree la category
+  //On crée la catégorie
   const newCategory = await Category.create({name, color});
 
   res.status(201).json(newCategory);
 }
 
-export async function updateCategorie (req, res){
-  // recuperer l'ID de categorie  a update
-  const categorieId = parseInt(req.params.id);
-  //recuperer la catégories en BDD
-  const categorieToUpdate = await Category.findByPk(categorieId);
+/**
+ * @description Mettre à jour une catégorie 
+ * @param {*} req l'id de la catégorie à mettre à jour dans les params
+ * @param {*} res code de status et la catégorie mise à jour
+ * @returns {Object} la catégorie mise à jour
+ */
+
+export async function updateCategory (req, res){
+  // récupérer l'ID de catégorie  à mettre à jour
+  const categoryId = parseInt(req.params.id);
+  // récupérer la catégorie en BDD
+  const categoryToUpdate = await Category.findByPk(categoryId);
   // si elle n'existe pas ==> 404
-  if(!categorieToUpdate){
+  if(!categoryToUpdate){
     return res.status(404).json({error: "Oups ce régime n'existe pas"});
   }
 
@@ -119,7 +144,7 @@ export async function updateCategorie (req, res){
   };
 
   // Vérifier l'unicité du nom seulement si le nom a changé
-  if (typeof name === "string" && name !== categorieToUpdate.name) {
+  if (typeof name === "string" && name !== categoryToUpdate.name) {
     const categorieNameIsExisting = await Category.findOne({ 
       where: { name }, 
       paranoid: false // Inclut aussi les éléments supprimés
@@ -131,33 +156,40 @@ export async function updateCategorie (req, res){
   }
 
   // Mise à jour des champs
-  categorieToUpdate.name = value.name || categorieToUpdate.name;
-  categorieToUpdate.color = value.color || categorieToUpdate.color;
+  categoryToUpdate.name = value.name || categoryToUpdate.name;
+  categoryToUpdate.color = value.color || categoryToUpdate.color;
     
   // Sauvegarder les modifications
-  await categorieToUpdate.save();
+  await categoryToUpdate.save();
     
-  return res.status(200).json(categorieToUpdate);
+  return res.status(200).json(categoryToUpdate);
 
 }
 
-export async function deleteCategorie(req, res) {
-  //recupérer l'ID du categorie
-  const categorieId = parseInt(req.params.id);
+/**
+ * @description Supprimer une catégorie 
+ * @param {*} req l'id de la catégorie à supprimer dans les params
+ * @param {*} res un status 204
+ * @returns {Object} un message de succès
+ */
 
-  // recupérer un  régime en base de données
-  const categorieToDelete = await Category.findByPk(categorieId);
+export async function deleteCategory(req, res) {
+  // recupérer l'ID de la categorie
+  const categoryId = parseInt(req.params.id);
 
-  //si la categorie n'existe pas, renvoyer une erreur 404
-  if(!categorieToDelete){
+  // recupérer une caégorie en base de données
+  const categoryToDelete = await Category.findByPk(categoryId);
+
+  // si la catégorie n'existe pas, renvoyer une erreur 404
+  if(!categoryToDelete){
     return res.status(404).json({error: "Oups, cette catégorie n'existe pas"});
   }
 
-  //On renomme la categorie qui vient d'etre supprimée
-  categorieToDelete.name = `categorieDeleteNumber${categorieToDelete.id}`;
-  categorieToDelete.save();
+  // On renomme la catégorie qui vient d'etre supprimée
+  categoryToDelete.name = `categoryDeleteNumber${categoryToDelete.id}`;
+  categoryToDelete.save();
 
-  categorieToDelete.destroy(); // Avec Sequelize en soft delete
+  categoryToDelete.destroy(); // Avec Sequelize en soft delete
   
   return res.status(204).json("categorie supprimé"); 
 }

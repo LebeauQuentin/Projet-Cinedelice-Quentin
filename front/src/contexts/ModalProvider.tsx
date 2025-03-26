@@ -25,8 +25,7 @@ export const ModalProvider = ({ children }: { children: React.ReactNode }) => {
             setIsModalUpdateRecipeOpen,
             isModalMessageBoxOpen,
             setIsModalMessageBoxOpen }}>
-
-
+              
               {children}
 
         </ModalContext.Provider>

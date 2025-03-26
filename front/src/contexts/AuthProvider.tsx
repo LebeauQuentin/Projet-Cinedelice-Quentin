@@ -10,6 +10,8 @@ import { useModal } from "./modal.context";
 import { deleteUser, updateUser } from "../services/api-users";
 import { useNavigate } from "react-router";
 
+// Provider pour l'authentification
+
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const [user, setUser] = useState<IUser | null>(null);
     const { setIsModalLoginOpen, setIsModalRegisterOpen, setIsModalProfilOpen, setIsModalMessageBoxOpen, isModalMessageBoxOpen } = useModal();

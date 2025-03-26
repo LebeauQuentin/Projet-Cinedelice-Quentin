@@ -5,11 +5,10 @@ import { useEffect } from "react";
 import ReactSimplyCarouselExample from "../components/Carroussel/Carroussel";
 import ValidateButton from "../components/Button/ValidateButton/ValidateButton";
 
-
 export default function HomePage() {
   // Définition du logo (O'clock Présente sur HomePage / Cinedelices sur les autres)
   const { setHeaderLogo } = useVar()
- useEffect(() => {
+  useEffect(() => {
     setHeaderLogo("O'clock Présente");
   }, [setHeaderLogo]);
 
@@ -51,6 +50,5 @@ export default function HomePage() {
         </section>
         )}  
       </div>
-  
   )    
 }

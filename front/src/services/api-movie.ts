@@ -1,10 +1,11 @@
+import { IMovie } from "../@types";
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
 
 export async function getAllMovies() {
-  
     try {
-    // On récupère les movies : fetch : GET /api/categories
+    // On récupère les movies : fetch : GET /api/movies
     const httpResponse = await fetch(`${apiBaseUrl}/movies`);
     // CAS où le backend répond mais avec un statut d'erreur
     if (! httpResponse.ok) {
@@ -22,10 +23,8 @@ export async function getAllMovies() {
   };  
 };
 
-// recuperer un film 
-
-export async function getOneMovie(id:number): Promise<any>{
-    
+// Récuperer un film 
+export async function getOneMovie(id:number): Promise<IMovie | null> {
     try {
        const httpResponse = await fetch(`${apiBaseUrl}/movies/${id}`);
     if(!httpResponse.ok) {
@@ -42,31 +41,29 @@ export async function getOneMovie(id:number): Promise<any>{
     };
   };
 
-// creation d'un film (le rajouter dans l'api)
-export async function createMovie(movieData:any): Promise<any> {
+// Création d'un film
+export async function createMovie(movieData:any): Promise<IMovie | null> {
     try {
-      //enregistrer  le nouveau film dans api 
-    const httpResponse = await fetch(`${apiBaseUrl}/movies`, {
-      method: "POST", // je cible la route `POST`
-      headers: {"Content-Type": "application/json"}, // je préviens que j'envoie du JSON
-      body: JSON.stringify(movieData), // j'envoie mes données en JSON
-    });
-    if (! httpResponse.ok) {
-      console.error(httpResponse);
-      return null;
-    };
-    const createdMovie = await httpResponse.json();
-    
-    return createdMovie;
+      const httpResponse = await fetch(`${apiBaseUrl}/movies`, {
+        method: "POST", // je cible la route `POST`
+        headers: {"Content-Type": "application/json"}, // je préviens que j'envoie du JSON
+        body: JSON.stringify(movieData), // j'envoie mes données en JSON
+      });
+      if (! httpResponse.ok) {
+        console.error(httpResponse);
+        return null;
+      };
+      const createdMovie = await httpResponse.json();
+      
+      return createdMovie;
     } catch (error) {
       console.error(error);
       return null;
     };  
   }; 
 
-//modifictation d'un film
-
-export async function updateMovie(id: number, data: any): Promise<any> {
+// Modification d'un film
+export async function updateMovie(id: number, data: any): Promise<IMovie | null> {
   try {
     const movieToUpdateUrl = `${apiBaseUrl}/movies/${id}`;
 
@@ -89,12 +86,10 @@ export async function updateMovie(id: number, data: any): Promise<any> {
     return null;
   }
 }
-
    
-   //suppression d'un film
+// Suppression d'un film
 export async function deleteMovie(id: number): Promise<boolean> {
     try {
-      // On récupère le film : fetch : GET /api/movies/:id
     const httpResponse= await fetch(`${apiBaseUrl}/movies/${id}`, {
       method:"DELETE",
     })

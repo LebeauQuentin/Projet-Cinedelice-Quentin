@@ -35,9 +35,7 @@ export async function login(req, res) {
   // générer un token
   const token = generateToken({ id: user.id });
   // créer un cookie
-  //console.log("Token généré:", token); // Debug
   setCookie(req, res, token);
-  //console.log("Response headers:", res.getHeaders());
 
   // retourner un message de succès
   res.status(200).json({ message: "Connexion réussie" });
@@ -51,16 +49,14 @@ export async function login(req, res) {
  */
 export async function getUserByToken(req, res) {
   // récupérer le token
-  // console.log("cookies", req.cookies);
   const token = getCookie(req);
-  // vérifier si le token est valide
-  // console.log("getUserByToken", token);
+  // vérifier si le token existe
   if (!token) {
     return res.status(401).json({ error: "Vous devez être connecté pour accéder à cette page" });
   }
   // vérifier si le token est valide
   const decoded = verifyToken(token);
-  // vérifier si le token est valide
+
   if (!decoded) {
     return res.status(401).json({ error: "Vous devez être connecté pour accéder à cette page" });
   }

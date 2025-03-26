@@ -1,3 +1,4 @@
+// Fonction qui va chercher une citation aléatoire sur une API externe pour la page 404
 export async function getQuote() {
     try {
          // On récupère aléatoirement ... 
@@ -13,15 +14,10 @@ export async function getQuote() {
 
     return quote; 
 
-
-
     } catch (error) {
         // cas ou le backend ne repond pas 
         console.error(error);
         return null;
         
-    }
-   
-
-      
+    }      
 }
