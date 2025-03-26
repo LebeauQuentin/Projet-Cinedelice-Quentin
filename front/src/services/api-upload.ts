@@ -1,5 +1,6 @@
 const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
 
+// Fonction pour uploader un fichier
 export async function uploadNewFile(file: File, id:number) {
   if (!file || !id) {
     throw new Error("Fichier et ID requis !");
@@ -31,6 +32,7 @@ export async function uploadNewFile(file: File, id:number) {
   }
 }
 
+// Fonction pour supprimer un fichier
 export async function deleteFile(id : number) {
   if (!id) {
     throw new Error("ID requis !");

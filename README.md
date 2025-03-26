@@ -48,4 +48,4 @@ attention env.db.docker.example est un exemple de fichier .env.db.docker, il fau
 
 ## Lien projet Origine
 
-`https://github.com/O-clock-Risotto/Projet-Cine-Delices`
+`https://github.com/LebeauQuentin/Projet-Cinedelice-Quentin`

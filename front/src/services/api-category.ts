@@ -1,10 +1,11 @@
+import { ICategory } from "../@types";
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const apiBaseUrl = import.meta.env.VITE_API_BASE_URL
 
 export async function getAllCategories() {
-
     try {
-    // On récupère les recettes : fetch : GET /api/categories
+    // On récupère les categories  : fetch : GET /api/categories
     const httpResponse = await fetch(`${apiBaseUrl}/categories`);
     // CAS où le backend répond mais avec un statut d'erreur
     if (! httpResponse.ok) {
@@ -22,9 +23,8 @@ export async function getAllCategories() {
   };
 };
 
-// recuperer une category 
-
-export async function getOneCategory(id:number): Promise<any>{
+// recuperer une categorie
+export async function getOneCategory(id:number): Promise<ICategory | null> {
 
   try {
      const httpResponse = await fetch(`${apiBaseUrl}/categories/${id}`);
@@ -42,8 +42,8 @@ export async function getOneCategory(id:number): Promise<any>{
   };
 };
 
-// creation d'une category
-export async function createCategory(categoryData:any): Promise<any> {
+// creation d'une categorie
+export async function createCategory(categoryData:any): Promise<ICategory | null> {
   try {
     //enregistrer  la nouvelle category dans api 
   const httpResponse = await fetch(`${apiBaseUrl}/categories`, {
@@ -63,11 +63,11 @@ export async function createCategory(categoryData:any): Promise<any> {
   };  
 }; 
 
-//modifictation d'une category
+// modification d'une categorie
 
-export async function updateCategory(id: number, data: any): Promise<any> {
+export async function updateCategory(id: number, data: any): Promise<ICategory | null> {
  try {
-  //recuperer la category a modifier
+  //recuperer la categorie a modifier
  const categoryToUpdateUrl = `${apiBaseUrl}/categories/${id}` 
  const httpResponse = await fetch(categoryToUpdateUrl, {
   method: "PATCH", 
@@ -86,17 +86,16 @@ export async function updateCategory(id: number, data: any): Promise<any> {
  };
 };
 
-//suppression d'une catégory
+// suppression d'une catégorie
 export async function deleteCategory(id: number): Promise<boolean> {
   try {
     // On récupère la categorie : fetch : GET /api/categories/:id
   const httpResponse= await fetch(`${apiBaseUrl}/categories/${id}`, {
     method:"DELETE",
   })
-  //CAS où le backend répond mais avec un statut d'erreur
+  // CAS où le backend répond mais avec un statut d'erreur
   if(!httpResponse.ok) {
     console.error(httpResponse);
-    // si une erreur a lieu, on renvoie null
     return false;
   };
   return httpResponse.ok

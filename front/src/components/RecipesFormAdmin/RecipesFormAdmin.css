@@ -469,6 +469,12 @@
   cursor: pointer;
 }
 
+.RecipeForm {
+  display: block;
+  align-items: center;
+  list-style-type: none;
+}
+
 /* Style pour le switch */
 .switch {
   position: relative;

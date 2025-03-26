@@ -6,6 +6,8 @@ import { Users } from "./Users.js";
 import { AssocIngredientRecipe } from "./AssocIngredientRecipe.js";
 import { Diet } from "./Diet.js";
 
+// TODO -> Probleme de nommage des tables (ex : as: Recipes ou as: recipes) -> Trop lourd à changer, mais pas très propre.
+
 /**
  * Association entre Recipe et Ingredient
  * recipe_ingredient_assignation

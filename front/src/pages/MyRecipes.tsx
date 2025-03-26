@@ -1,11 +1,10 @@
-import { Link } from "react-router";
-import RecipeCardMod from "../components/RecipeCardMod/RecipeCardMod";
 import "./style/MyRecipes.css";
+import { Link } from "react-router";
 import { useVar } from "../contexts/var.context";
 import { useAuthVerification } from "../utils/utils.authVerification";
 import { useEffect } from "react";
 import { useAuth } from "../contexts/auth.context";
-
+import RecipeCardMod from "../components/RecipeCardMod/RecipeCardMod";
 
 export default function MyRecipes() {
   const {user} = useAuth();
@@ -20,7 +19,6 @@ export default function MyRecipes() {
   useAuthVerification("user");
 
   return (
-
     <>
       {/* Gestion du chargement */}
       {isLoading && <p className="loading_message">Chargement de vos recettes. Votre séance va commencer...</p>}

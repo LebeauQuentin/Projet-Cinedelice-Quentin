@@ -1,5 +1,4 @@
 import { IRecipeDataUpdate, IRecipe } from "../@types";
-
 const apiBaseUrl = import.meta.env.VITE_API_BASE_URL
 import { IIngredientsList } from '../@types';
 
@@ -38,7 +37,7 @@ export async function getOneRecipe(id: number) {
   }
 }
 
-// supprimer une recette
+// Supprimer une recette
 export async function deleteRecipe(id: number) : Promise<boolean> {
   try {
     const httpResponse = await fetch(`${apiBaseUrl}/recipes/${id}`, {
@@ -54,7 +53,7 @@ export async function deleteRecipe(id: number) : Promise<boolean> {
   }
 }
 
-// valider une recette
+// Valider une recette
 export async function validateRecipe(id: number, validated: boolean) : Promise<boolean> {
   try {
     const httpResponse = await fetch(`${apiBaseUrl}/admin/recipes/${id}`, {
@@ -74,7 +73,7 @@ export async function validateRecipe(id: number, validated: boolean) : Promise<b
   }
 }
 
-// pour update une recette
+// Modifier une recette
 export async function updateRecipe(id: number, recipeData: IRecipeDataUpdate) : Promise<IRecipe | null> {
   try {
     const httpResponse = await fetch(`${apiBaseUrl}/recipes/${id}`, {
@@ -95,9 +94,8 @@ export async function updateRecipe(id: number, recipeData: IRecipeDataUpdate) : 
   }
 }
 
-
-export async function createRecipe(title: string, description: string, duration: number, difficulty: string, ingredients: IIngredientsList[], instruction: string, diets: number[], category_id: number, movie_id: number, user_id: number, image: string) {
-  
+// Création d'une recette
+export async function createRecipe(title: string, description: string, duration: number, difficulty: string, ingredients: IIngredientsList[], instruction: string, diets: number[], category_id: number, movie_id: number, user_id: number, image: string) {  
   try {
   // On créé la recette : fetch : POST /api/recipes
   const httpResponse = await fetch(`${apiBaseUrl}/recipes`, {

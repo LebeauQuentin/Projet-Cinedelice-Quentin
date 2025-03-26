@@ -14,7 +14,7 @@ export default function Recipes () {
   }, [setHeaderLogo]);
 
   // Utilisation de React Query pour gérer la requête
-  const { recipes, isLoading, error } = useVar()
+  const { recipes, isLoading, error } = useVar();
 
   const [recipesDisplay, setRecipesDisplay] = useState(recipes);
   const [catsAndDietsSelected, setcatsAndDietsSelected] = useState("");
@@ -69,7 +69,6 @@ let textFilterRecipesDisplay = ""
 
   return (
     <>
-
     {/* Gestion du chargement */}
     {isLoading && <p className="loading_message">Chargement des recettes. Votre séance va commencer...</p>}
 

@@ -1,10 +1,8 @@
 import { IUser } from "../@types";
 
-
 const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
 
-export async function register(lastname: string, firstname: string, email: string, password: string, confirmPassword: string): Promise<string | boolean> {
-  
+export async function register(lastname: string, firstname: string, email: string, password: string, confirmPassword: string): Promise<string | boolean> {  
   try {
   // On créé l'utilisateur : fetch : POST /api/users
   const httpResponse = await fetch(`${apiBaseUrl}/users`, {

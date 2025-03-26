@@ -9,9 +9,9 @@ import { useNavigate, useParams } from "react-router";
 import { useModal } from "../contexts/modal.context";
 import { deleteFile, uploadNewFile } from "../services/api-upload";
 import { useAuthVerification } from "../utils/utils.authVerification";
+import { useQuery } from "@tanstack/react-query";
 import ValidateButton from "../components/Button/ValidateButton/ValidateButton";
 import ModalUpdateRecipeBox from "../components/ModalUpdateRecipeBox/ModalUpdateRecipeBox";
-import { useQuery } from "@tanstack/react-query";
 
 export default function UpdateRecipe() {
   const refContainerInstructions = useRef<HTMLDivElement>(null);

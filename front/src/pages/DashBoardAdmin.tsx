@@ -1,7 +1,7 @@
 import "./style/DashBoardAdmin.css";
 import RecipesAdmin from "../components/RecipesAdmin/RecipesAdmin";
 import {useVar} from "../contexts/var.context";
-import RecipesFormAdmin from "../components/RecipesFormAdmin/RecipesFormAdmin";
+import { useAuthVerification } from "../utils/utils.authVerification";
 import { useEffect, useState } from "react";
 import { DashboardAdminVue, adminStatusTitleContent } from "../@types";
 import MoviesAdmin from "../components/MoviesAdmin/MoviesAdmin";
@@ -14,9 +14,9 @@ import CategoriesAdmin from "../components/CategoriesAdmin/CategoriesAdmin";
 import CategoriesFormAdmin from "../components/CategoriesFormAdmin copy/CategoriesFormAdmin";
 import CategoriesCreateAdmin from "../components/CategoriesCreateAdmin/CategoriesCreateAdmin";
 import IngredientsAdmin from "../components/IngredientsAdmin/IngredientsAdmin";
-import { useAuthVerification } from "../utils/utils.authVerification";
 import UsersListAdmin from "../components/UsersListAdmin/UsersListAdmin";
 import UserFormAdmin from "../components/UserFormAdmin/UserFormAdmin";
+import RecipesFormAdmin from "../components/RecipesFormAdmin/RecipesFormAdmin";
 
 export default function DashboardAdmin() {
   // Définition du logo (O'clock Présente sur HomePage / Cinedelices sur les autres)
@@ -25,15 +25,15 @@ export default function DashboardAdmin() {
     setHeaderLogo("CineDelices");
   }, [setHeaderLogo]);
 
- const { recipes } = useVar();
- const [ currentView, setCurrentView ] = useState<DashboardAdminVue>(DashboardAdminVue.RECIPES_LIST);
- const [ currentViewTitle, setCurrentViewTitle ] = useState<adminStatusTitleContent>(adminStatusTitleContent.RECIPES_LIST);
- const [ selectedRecipeId, setSelectedRecipeId ] = useState<number | null>(null);
- const recipesTabSorted = recipes.sort((a, b) => (a.validated === b.validated ? 0 : a.validated ? 1 : -1));
- const [ selectedMovieId, setSelectedMovieId ] = useState<number | null>(null);
- const [ selectedCategoryId, setSelectedCategoryId ] = useState<number | null>(null);
- const [ selectedDietId, setSelectedDietId ] = useState<number | null>(null);
-const [ selectedUserId, setSelectedUserId ] = useState<number | null>(null);
+  const { recipes } = useVar();
+  const [ currentView, setCurrentView ] = useState<DashboardAdminVue>(DashboardAdminVue.RECIPES_LIST);
+  const [ currentViewTitle, setCurrentViewTitle ] = useState<adminStatusTitleContent>(adminStatusTitleContent.RECIPES_LIST);
+  const [ selectedRecipeId, setSelectedRecipeId ] = useState<number | null>(null);
+  const recipesTabSorted = recipes.sort((a, b) => (a.validated === b.validated ? 0 : a.validated ? 1 : -1));
+  const [ selectedMovieId, setSelectedMovieId ] = useState<number | null>(null);
+  const [ selectedCategoryId, setSelectedCategoryId ] = useState<number | null>(null);
+  const [ selectedDietId, setSelectedDietId ] = useState<number | null>(null);
+  const [ selectedUserId, setSelectedUserId ] = useState<number | null>(null);
 
  // Affiche la vue actuelle en fonction de la valeur de currentView
  const renderCurrentView = () => {
@@ -70,8 +70,8 @@ const [ selectedUserId, setSelectedUserId ] = useState<number | null>(null);
   }
  }
 
- // permet d'afficher le titre du contenu actuelle
- // obliger de mettre ceci dans un useEffect pour que le titre soit affiché correctement
+ // Permet d'afficher le titre du contenu actuelle
+ // Dans un useEffect pour que le titre soit affiché correctement
  useEffect(() => {
   switch (currentView) {
     case DashboardAdminVue.RECIPES_LIST:
