@@ -3,7 +3,7 @@ import Diet from "../Diet/Diet";
 import "./RecipeCardMod.css";
 import { IRecipe } from "../../@types";
 import Category from "../Category/Category";
-import ModalDeleteBox from "../ModalDeleteBox/ModalDeleteBox";
+import ModalDeleteBox from "../Modals/ModalDeleteBox/ModalDeleteBox";
 import { deleteRecipe } from "../../services/api-recipe";
 import { toast } from "react-toastify";
 import { useVar } from "../../contexts/var.context";

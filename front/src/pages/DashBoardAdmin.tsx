@@ -1,22 +1,22 @@
 import "./style/DashBoardAdmin.css";
-import RecipesAdmin from "../components/RecipesAdmin/RecipesAdmin";
+import RecipesAdmin from "../components/Admin/RecipesAdmin/RecipesAdmin";
 import {useVar} from "../contexts/var.context";
 import { useAuthVerification } from "../utils/utils.authVerification";
 import { useEffect, useState } from "react";
 import { DashboardAdminVue, adminStatusTitleContent } from "../@types";
-import MoviesAdmin from "../components/MoviesAdmin/MoviesAdmin";
-import MoviesFormAdmin from "../components/MoviesFormAdmin/MoviesFormAdmin";
-import MoviesCreateAdmin from "../components/MoviesCreateAdmin/MoviesCreateAdmin";
-import DietsAdmin from "../components/DietsAdmin/DietsAdmin";
-import DietsFormAdmin from "../components/DietsFormAdmin/DietsFormAdmin";
-import DietsCreateAdmin from "../components/DietsCreateAdmin/DietsCreateAdmin";
-import CategoriesAdmin from "../components/CategoriesAdmin/CategoriesAdmin";
-import CategoriesFormAdmin from "../components/CategoriesFormAdmin copy/CategoriesFormAdmin";
-import CategoriesCreateAdmin from "../components/CategoriesCreateAdmin/CategoriesCreateAdmin";
-import IngredientsAdmin from "../components/IngredientsAdmin/IngredientsAdmin";
-import UsersListAdmin from "../components/UsersListAdmin/UsersListAdmin";
-import UserFormAdmin from "../components/UserFormAdmin/UserFormAdmin";
-import RecipesFormAdmin from "../components/RecipesFormAdmin/RecipesFormAdmin";
+import MoviesAdmin from "../components/Admin/MoviesAdmin/MoviesAdmin";
+import MoviesFormAdmin from "../components/Admin/MoviesFormAdmin/MoviesFormAdmin";
+import MoviesCreateAdmin from "../components/Admin/MoviesCreateAdmin/MoviesCreateAdmin";
+import DietsAdmin from "../components/Admin/DietsAdmin/DietsAdmin";
+import DietsFormAdmin from "../components/Admin/DietsFormAdmin/DietsFormAdmin";
+import DietsCreateAdmin from "../components/Admin/DietsCreateAdmin/DietsCreateAdmin";
+import CategoriesAdmin from "../components/Admin/CategoriesAdmin/CategoriesAdmin";
+import CategoriesFormAdmin from "../components/Admin/CategoriesFormAdmin/CategoriesFormAdmin";
+import CategoriesCreateAdmin from "../components/Admin/CategoriesCreateAdmin/CategoriesCreateAdmin";
+import IngredientsAdmin from "../components/Admin/IngredientsAdmin/IngredientsAdmin";
+import UsersListAdmin from "../components/Admin/UsersListAdmin/UsersListAdmin";
+import UserFormAdmin from "../components/Admin/UserFormAdmin/UserFormAdmin";
+import RecipesFormAdmin from "../components/Admin/RecipesFormAdmin/RecipesFormAdmin";
 
 export default function DashboardAdmin() {
   // Définition du logo (O'clock Présente sur HomePage / Cinedelices sur les autres)

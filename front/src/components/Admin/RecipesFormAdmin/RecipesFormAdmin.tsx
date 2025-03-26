@@ -1,32 +1,30 @@
-import "./style/UpdateRecipe.css";
+import "./RecipesFormAdmin.css";
 import { useEffect, useState, useRef } from "react";
-import { getOneRecipe, updateRecipe } from "../services/api-recipe";
-import { IRecipe, IIngredients, IRecipeDataUpdate } from "../@types";
+import { getOneRecipe, validateRecipe, updateRecipe, deleteRecipe } from "../../../services/api-recipe";
+import { IRecipe, IIngredients, IRecipeDataUpdate, DashboardAdminVue } from "../../../@types";
 import { toast } from "react-toastify";
-import { createIngredient } from "../services/api-ingredient";
-import { useVar } from "../contexts/var.context";
-import { useNavigate, useParams } from "react-router";
-import { useModal } from "../contexts/modal.context";
-import { deleteFile, uploadNewFile } from "../services/api-upload";
-import { useAuthVerification } from "../utils/utils.authVerification";
-import { useQuery } from "@tanstack/react-query";
-import ValidateButton from "../components/Button/ValidateButton/ValidateButton";
-import ModalUpdateRecipeBox from "../components/Modals/ModalUpdateRecipeBox/ModalUpdateRecipeBox";
+import { useVar } from "../../../contexts/var.context";
+import { createIngredient } from "../../../services/api-ingredient";
+import { useQuery } from '@tanstack/react-query';
 
-export default function UpdateRecipe() {
+export default function RecipesFormAdmin({recipeId, onBack, setSelectedMovieId, setCurrentView}: RecipesFormAdminProps) {
   const refContainerInstructions = useRef<HTMLDivElement>(null);
-  const navigate = useNavigate();
-  const { id } = useParams(); // id est une chaîne de caractères
   const { setUpdateTriggerRecipes, categories, diets, ingredients, setUpdateTriggerIngredients } = useVar();
   const [ recipe, setRecipe ] = useState<IRecipe | null>(null);
   const [ tabInstructions, setTabInstructions ] = useState<string[]>([]);
   const [ tabIngredients, setTabIngredients ] = useState<IIngredients[]>([]);
-  const { setIsModalUpdateRecipeOpen } = useModal();
-  const [selectedImage, setSelectedImage] = useState<File | null>(null);
-  const [isUpdating, setIsUpdating] = useState(false);
 
-  const recipeId = id ? parseInt(id, 10) : null; // Convertir en nombre ou mettre null si id est undefined
-  
+  // Utilisation de React Query pour gérer la requête
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["recipe", recipeId],
+    queryFn: () => getOneRecipe(Number(recipeId)),
+    retry: 2, // Nombre de tentatives en cas d'échec
+  });
+
+  useEffect(() => {
+    if( data ) { setRecipe(data) }
+  }, [data]);
+
   function handleCategoryChange(event: React.ChangeEvent<HTMLSelectElement>) {
     const selectedCategory = categories.find(category => category.id === parseInt(event.target.value));
     if (selectedCategory) {
@@ -48,7 +46,7 @@ export default function UpdateRecipe() {
   // Gestion des régimes ET des inputs checkbox
   function handleRegimeChange(event: React.ChangeEvent<HTMLInputElement>) {
     const dietsFromRecipe = recipe?.Diets || [];
-    const selectedRegime = diets.find(diet => diet.id === parseInt(event.target.id));
+    const selectedRegime = diets.find(regime => regime.id === parseInt(event.target.id));
     if (selectedRegime) {
       const updatedDiet = dietsFromRecipe.find(diet => diet.id === selectedRegime.id)
       if(updatedDiet) {
@@ -56,21 +54,10 @@ export default function UpdateRecipe() {
         setRecipe(recipe ? {...recipe, Diets: updatedDiets} : null);
         return;
       }
-      setRecipe(recipe ? {...recipe, Diets: [...dietsFromRecipe, selectedRegime]} : null);  
+      setRecipe(recipe ? {...recipe, Diets: [...diets, selectedRegime]} : null);  
     }
   }
 
-  // Utilisation de React Query pour gérer la requête
-  const { data, isLoading, error } = useQuery({
-    queryKey: ["recipe", recipeId],
-    queryFn: () => getOneRecipe(Number(recipeId)),
-    retry: 2, // Nombre de tentatives en cas d'échec
-  });
-
-  useEffect(() => {
-    if( data ) { setRecipe(data) }
-  }, [data]);
-  
   // Gestion des instructions
   useEffect(() => {
     if (recipe?.instruction) {
@@ -147,50 +134,22 @@ export default function UpdateRecipe() {
       category_id: category_id ?? 0 ,  
       user_id: user_id ?? 0,
       diets: diets ?? [],
-      validated: false,
-      ingredients: newIngredients ?? [],
+      ingredients: newIngredients ?? []
     };
 
     if (!recipeId) {
-      console.error("le id de la recette n'existe pas");
+      console.error("l'id de la recette n'existe pas");
       return;
     }
     const updatedRecipe = await updateRecipe(recipeId, recipeData);
     if (!updatedRecipe) {
-      setIsModalUpdateRecipeOpen(false)
       toast.error("Erreur lors de la mise à jour de la recette");
       return;
     }
-    setIsModalUpdateRecipeOpen(false)
-
-    if (selectedImage && recipe) {
-      try {
-        setIsUpdating(true); // Indique qu'une mise à jour est en cours
-        const deleted = await deleteFile(recipe.id);    
-        if (!deleted) {
-          toast.error("Problème de suppression des images");
-          setIsUpdating(false);
-          return;
-        }
-        const uploadResult = await uploadNewFile(selectedImage, recipe.id);
-        if (!uploadResult) {  // Vérifie si l'upload a bien retourné quelque chose
-          toast.error("Problème lors de l'upload de la nouvelle image");
-          setIsUpdating(false);
-          return;
-        }
-        toast.success("Recette mise à jour avec succès"); 
-        setUpdateTriggerRecipes(prev => !prev);  
-        navigate("/myRecipes"); // Redirige après l'upload     
-      } catch (error) {
-        console.error("Erreur lors du remplacement de l'image:", error);
-      } finally {
-        setIsUpdating(false); // Fin de la mise à jour
-      }
-    } else {
-      toast.success("Recette mise à jour avec succès");
-      setUpdateTriggerRecipes(prev => !prev);
-      navigate("/myRecipes"); // Redirige immédiatement
-    }   
+    toast.success("Recette mise à jour avec succès");
+    onBack()
+    // Mettre à jour la liste des recettes avec celle mise à jour
+    setUpdateTriggerRecipes(prev => !prev);
   }
 
   // Gestion de la vérification des ingrédients
@@ -219,6 +178,7 @@ export default function UpdateRecipe() {
           quantity: ing.recipe_ingredient_assignation.quantity,
           unit: ing.recipe_ingredient_assignation.unit
         });
+        // Mettre à jour la liste des ingrédients
         setUpdateTriggerIngredients(((prev) => !prev)) // Update de la liste des ingrédients
       } else {
         newTabIngredients.push({
@@ -231,18 +191,50 @@ export default function UpdateRecipe() {
     return newTabIngredients;
   }
 
-  // Input mise en place de l'image
-  function handleImageChange(event: React.ChangeEvent<HTMLInputElement>) {
-    if (event.target.files && event.target.files[0]) {
-      setSelectedImage(event.target.files[0]);
+  // Gestion de la soumission de la validation
+  async function handleSubmitValidation(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const validated = recipe?.validated;
+    const recipeId = recipe?.id;
+    if (!recipeId || validated === undefined) {
+      return;
     }
+    const validatedRecipe = await validateRecipe(recipeId, validated);
+    if (!validatedRecipe) {
+      toast.error("Erreur lors de la validation de la recette");
+      return;
+    }
+    if (recipe.validated){
+    toast.success("Recette validée avec succès");
+    } else { toast.success("Validation de la recette retirée avec succès")}
+    // Mettre à jour la liste des recettes dans le tableau des recettes principale
+    setUpdateTriggerRecipes(prev => !prev);
+  }
+  // Gestion du click sur le bouton de modification du film
+  function onMovieClick(movieId: number) {
+    setSelectedMovieId(movieId);
+    setCurrentView(DashboardAdminVue.MOVIES_FORM);
   }
 
-  // Vérification de l'authentification
-  useAuthVerification("user");
-  
+  // Gestion de la suppression de la recette
+  async function handleDeleteRecipe() {
+    const recipeId = recipe?.id;
+    if (!recipeId) {
+      console.error("le id de la recette n'existe pas");
+      return;
+    }
+    const deletedRecipe = await deleteRecipe(recipeId);
+    if (!deletedRecipe) {
+      toast.error("Erreur lors de la suppression de la recette");
+      return;
+    }
+    toast.info("Recette supprimée avec succès");
+    setUpdateTriggerRecipes(prev => !prev);
+    onBack();
+  }
+
   return (
-    <>
+  <>
     {/* Gestion du chargement */}
     {isLoading && <p className="loading_message">Chargement de la recette. Votre séance va commencer...</p>}
     {/* Gestion des erreurs */}
@@ -250,35 +242,34 @@ export default function UpdateRecipe() {
     
     {/* Affichage des recettes si elles sont disponibles */}
     {data && (
-    <div className="recipe_update_container section">
-      <div className="recipes_update_container_infos">
-        <div className="recipes_update_container_infos_title">
-          <h2>Modification {recipe?.title}</h2>
+    <div className="recipes_form_admin_container">
+      <div className="recipes_admin_container_infos">
+        <div className="recipes_admin_container_infos_title">
+          <h2>{recipe?.title}</h2>
           <p>Réalisée par : {recipe?.user.first_name}</p>
           <p>Difficulté : {recipe?.difficulty}</p>
           <p>Durée : {recipe?.duration} minutes</p>
           <p>Film associé : {recipe?.movie.title}</p>
-          <time className="recipes_update_container_infos_title_date" dateTime={recipe?.created_at}>
+          <time className="recipes_admin_container_infos_title_date" dateTime={recipe?.created_at}>
             <p>Créé le : </p>
             {recipe?.created_at && new Date(recipe?.created_at).toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' })}
           </time>
         </div>
-        <div className="recipes_update_container_infos_image">
+        <div className="recipes_admin_container_infos_image">
           <img src={recipe?.image} alt={recipe?.title} />
         </div>
       </div>
 
-      <form className="recipes_update_container_form"  onSubmit={(event) => {
-          event.preventDefault();}} >
-        <div className="recipes_update_container_title">
+      <form className="recipes_form_admin_container_form" onSubmit={handleSubmitRecipe}>
+        <div className="recipes_form_admin_container_title">
            <label htmlFor="title">Titre de la recette</label>
            <input  type="text" id="title" name="title" value={recipe?.title ?? ""} onChange={(e) => setRecipe(recipe ? {...recipe, title: e.target.value} : null)} />  
         </div>
-        <div className="recipes_update_container_duration">
+        <div className="recipes_form_admin_container_duration">
           <label htmlFor="duration">Durée en minutes</label>
           <input type="number" id="duration" name="duration" value={recipe?.duration ?? ""} onChange={(e) => setRecipe(recipe ? {...recipe, duration: parseInt(e.target.value)} : null)} />
         </div>
-        <div className="recipes_update_container_difficulty">
+        <div className="recipes_form_admin_container_difficulty">
           <label htmlFor="difficulty">Difficulté</label>
           <select id="difficulty" name="difficulty" value={recipe?.difficulty ?? ""} onChange={(e) => setRecipe(recipe ? {...recipe, difficulty: e.target.value} : null)}>
             <option value="Facile">Facile</option>
@@ -286,11 +277,11 @@ export default function UpdateRecipe() {
             <option value="Difficile">Difficile</option>
           </select>
         </div>
-        <div className="recipes_update_container_description  ">
+        <div className="recipes_form_admin_container_description  ">
           <label htmlFor="description">Description</label>
           <textarea id="description" name="description" value={recipe?.description ?? ""} onChange={(e) => setRecipe(recipe ? {...recipe, description: e.target.value} : null)} />
         </div>
-        <div className="recipes_update_container_categories">
+        <div className="recipes_form_admin_container_categories">
           <label htmlFor="categories">Catégories</label>
           <select id="categories" name="categories" value={recipe?.category.id ?? ""} onChange={(e) => handleCategoryChange(e)}>
             {categories.map((category) => (
@@ -299,11 +290,10 @@ export default function UpdateRecipe() {
           </select>
         </div>
         {/* Gestion des régimes */}
-        <div className="recipes_update_container_regime">
-          <label> Régime(s) Alimentaire</label>
+        <div className="recipes_form_admin_container_regime">
           {
             diets.map((regime) => (
-              <div className="recipes_update_container_regime_inputs" key={regime.id}>
+              <div key={regime.id}>
                 <input type="checkbox" id={regime.id.toString()} name={regime.name} checked={recipe?.Diets?.some(diet => diet.id === regime.id)} onChange={(e) => handleRegimeChange(e)} />
                 <label htmlFor={regime.id.toString()}>{regime.name}</label>
               </div>
@@ -311,38 +301,38 @@ export default function UpdateRecipe() {
           }
         </div>
         {/* Gestion des instructions */}
-        <div className="recipes_update_container_instructions">
-          <div className="recipes_update_container_instructions_title">
+        <div className="recipes_form_admin_container_instructions">
+          <div className="recipes_form_admin_container_instructions_title">
             <h3>Instructions</h3>
-            <button className="recipes_update_container_instructions_button" type="button" onClick={() => handleAddInstruction()}>+</button>
+            <button className="recipes_form_admin_container_instructions_button" type="button" onClick={() => handleAddInstruction()}>+</button>
           </div>
-          <div ref={refContainerInstructions} className="recipes_update_container_instructions_content">
+          <div ref={refContainerInstructions} className="recipes_form_admin_container_instructions_content">
             {tabInstructions.map((instruction, index) => (
-              <div key={index} className="recipes_update_container_instructions_content_input_container">
-                <input className="recipes_update_container_instructions_content_input" 
+              <div key={index} className="recipes_form_admin_container_instructions_content_input_container">
+                <input className="recipes_form_admin_container_instructions_content_input" 
                 type="text" id={`instruction-etape-${index}`} 
                 name={`instruction-etape-${index}`} 
                 value={instruction} 
                 onChange={(e) => setTabInstructions(tabInstructions.map((instruction, i) => i === index ? e.target.value : instruction))} />
-                <button className="recipes_update_container_instructions_content_button" type="button" onClick={() => handleDeleteInstruction(index)}>🗑️</button>
+                <button className="recipes_form_admin_container_instructions_content_button" type="button" onClick={() => handleDeleteInstruction(index)}>🗑️</button>
               </div>
             ))}
           </div>
         </div>
         {/* Gestion des ingrédients */}
-        <div className="recipes_update_container_ingredients">
-          <div className="recipes_update_container_ingredients_title">
+        <div className="recipes_form_admin_container_ingredients">
+          <div className="recipes_form_admin_container_ingredients_title">
           <h3>Ingrédients</h3>
-          <button className="recipes_update_container_ingredients_button" type="button" onClick={() => handleAddIngredient()}>+</button>
+          <button className="recipes_form_admin_container_ingredients_button" type="button" onClick={() => handleAddIngredient()}>+</button>
           </div>
           <div className="ingredients_container_infos">
               <h6>Ingrédient</h6>
               <h6>Quantité</h6>
               <h6>Unité</h6>   
           </div>
-            <div className="recipes_update_container_ingredients_content">
+            <div className="recipes_form_admin_container_ingredients_content">
             {tabIngredients.map((ingredient, index) => (
-              <div key={index} className="recipes_update_container_ingredients_content_input_container">
+              <div key={index} className="recipes_form_admin_container_ingredients_content_input_container">
                 <input type="text" 
                   id={`ingredient-name-${index}`} 
                   name={`ingredient-name-${index}`} 
@@ -363,43 +353,57 @@ export default function UpdateRecipe() {
                 name={`ingredient-unit-${index}`} 
                 value={ingredient.recipe_ingredient_assignation.unit ?? ""} 
                 onChange={(e) => setTabIngredients(tabIngredients.map((ingredient, i) => i === index ? {...ingredient, recipe_ingredient_assignation: {...ingredient.recipe_ingredient_assignation, unit: e.target.value}} : ingredient))} />
-                <button className="recipes_update_container_ingredients_content_button" type="button" onClick={() => handleDeleteIngredient(index)}>🗑️</button>
+                <button className="recipes_form_admin_container_ingredients_content_button" type="button" onClick={() => handleDeleteIngredient(index)}>🗑️</button>
               </div>
             ))}
           </div>
         </div>
-        <div className="recipes_update_container_image">
-          <label className="recipes_update_container_image_label" htmlFor="image">Modifier l'image</label>
-          <input 
-            type="file" 
-            id="image" 
-            name="image" 
-            accept="image/*" 
-            onChange={handleImageChange} 
-          />
-        </div>
-
-        <div className="validate_button_update_recipe">
-          <ValidateButton text={isUpdating ? "Mise à jour en cours..." : "Mettre à jour"} type="button" onClick={() => setIsModalUpdateRecipeOpen(true)} />
-        </div>
+        <button className="recipes_form_admin_container_button" type="submit">Enregistrer <span className="span_red_admin_recipe">*</span></button>
       </form>
-      
-      {/* film associé */}
-      <div className="recipes_update_container_movie">
-        <div className="recipes_update_container_movie_infos">
+      {/* Gestion du film associé */}
+      <div className="recipes_form_admin_container_movie">
+        <div className="recipes_form_admin_container_movie_infos">
          <h3>Film associé</h3>
          <p>{recipe?.movie.title}</p>
          <p>{recipe?.movie.year}</p>
+         <button className="recipes_form_admin_container_movie_button" onClick={() => onMovieClick(recipe?.movie.id ?? 0)}>Modification du film
+         </button>
         </div>
-        <div className="recipes_update_container_movie_content">
+        <div className="recipes_form_admin_container_movie_content">
           <img src={recipe?.movie.image} alt={recipe?.movie.title} />
         </div>
       </div>
-       <ModalUpdateRecipeBox title={recipe?.title || ""} onClick={() => handleSubmitRecipe(event as never)}/>
-    </div>
-      )} 
-    </>
+      {/* Gestion de la validation de la recette */}
+      <div className="recipes_form_admin_container_validation">
+        <form className="recipes_form_admin_container_validation_form" onSubmit={handleSubmitValidation}>
+          <div className="recipes_form_admin_container_validation_form_checkbox">
+            <p>Validation de la recette</p>
+            <p><span className="span_red_admin_recipe">* n'oubliez pas d'enregistrer les modifications</span></p>
+            <label className="switch">
+              <input 
+                type="checkbox" 
+                checked={recipe?.validated} 
+                onChange={(e) => setRecipe(recipe ? {...recipe, validated: e.target.checked} : null)} 
+              />
+              <span className="slider"></span>
+            </label>
+          </div>
+          <button className="recipes_form_admin_container_validation_button">Valider la recette</button>
+        </form>
+      </div>
+      <div className="recipes_form_admin_container_button_footer_container">
+        <button className="recipes_form_admin_container_button_back" onClick={onBack}>Annuler</button>
+        <button className="recipes_form_admin_container_button_delete" onClick={handleDeleteRecipe}>Supprimer</button>
+      </div>
+    </div>)}
+  </>
   );
 }
 
+interface RecipesFormAdminProps {
+  recipeId: number | null;
+  onBack: () => void;
+  setSelectedMovieId: (movieId: number) => void;
+  setCurrentView: (view: DashboardAdminVue) => void;
+}
 

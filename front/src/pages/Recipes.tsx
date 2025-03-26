@@ -2,7 +2,7 @@ import "./style/Recipes.css"
 import { useVar } from "../contexts/var.context";
 import { Link } from "react-router";
 import { useEffect, useState } from "react";
-import ModalFilterBox from "../components/ModalFilterBox/ModalFilterBox";
+import ModalFilterBox from "../components/Modals/ModalFilterBox/ModalFilterBox";
 import RecipeCard from "../components/RecipeCard/RecipeCard";
 import SearchBar from "../components/SearchBar/SearchBar";
 
